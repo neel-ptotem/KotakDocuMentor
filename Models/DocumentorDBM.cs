@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 namespace KotakDocuMentor.Models
 {
-    partial class SuperSet
-    {
-    }
 
     partial class Docucheck
     {
@@ -95,17 +92,47 @@ namespace KotakDocuMentor.Models
     {
         private DocumentorDBDataContext DocumentorDBM=new DocumentorDBDataContext();
 
-        public void calculate_quiz_score()
+
+        public int get_max_docucheck_score()
+        {
+            return this.Docuchecks.Select(a => a.FilledSections.ToList()).Count();
+        }
+
+        public int get_max_quiz_score()
+        {
+            return this.CaseStudy.CaseStudyQuizs.First().Quiz.QuizQuestions.Count;
+        }
+
+        public int get_obtained_docucheck_score()
+        {
+            int obtained_score = 0;
+            foreach (Docucheck dchk in this.Docuchecks)
+            {
+                foreach (FilledSection filled_section in dchk.FilledSections)
+                {
+                    if (filled_section.has_no_error == filled_section.marked_correctly)
+                        obtained_score = obtained_score + 1;                   
+                }                
+            }
+            return obtained_score;
+        }
+
+        public int get_obtained_quiz_score()
         {   
-            int score=0;
+            int quiz_score=0;
             foreach (Response r in this.Responses.ToList())
             {
                 if (r.Question.AnswerChoices.Where(b=>b.correct==true).Select(a => a.answer_content).Contains(r.response_content))
-                    score = score + 1;
+                    quiz_score = quiz_score + 1;
             }
-            //this.score = 100;
-            DocumentorDBM.Assignments.Where(a => a.id == this.id).First().score += score;
-            DocumentorDBM.SubmitChanges();
+            return quiz_score;
+        }
+
+        public int get_final_score()
+        {
+            int obtained_score = this.get_obtained_docucheck_score() + this.get_obtained_quiz_score();
+            int maximum_score = this.get_max_docucheck_score() + this.get_max_quiz_score();
+            return obtained_score / maximum_score;
         }
 
         public void create_quiz()
@@ -147,14 +174,8 @@ namespace KotakDocuMentor.Models
         {
             CaseStudy case_study = DocumentorDBM.CaseStudies.Where(a => a.id == this.case_study_id).First();
             List<CaseStudyDocket> case_study_dockets = case_study.CaseStudyDockets.ToList();
-            List<CaseStudyDocument> case_study_documents = case_study.CaseStudyDocuments.ToList();
             List<Docket> dockets = new List<Docket>();
             List<Document> documents = new List<Document>();
-            foreach (CaseStudyDocument csd in case_study_documents)
-            {
-                documents.Add(csd.Document);
-            }
-
             foreach (CaseStudyDocket csd in case_study_dockets)
             {
                 dockets.Add(csd.Docket);

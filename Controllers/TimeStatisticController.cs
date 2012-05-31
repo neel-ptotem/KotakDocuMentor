@@ -29,14 +29,14 @@ namespace KotakDocuMentor.Controllers
             //int source_type = Int32.Parse(Request.Params["source_type"]);
             //int source_id = Int32.Parse(Request.Params["source_id"]);
             //float duration = float.Parse(Request.Params["duration"]);
-            //if (DocumentorDB.TimeStatistics.Where(a => a.source_id == source_id && a.source_type == source_type && a.employee_id.Equals(Request.Params["employee_id"])).Any())
+            //if (DocumentorDB.TimeStatistics.Where(a => a.source_id == source_id && a.source_type == source_type && a.student_id.Equals(Request.Params["student_id"])).Any())
             //{
-            //    time_statistic = DocumentorDB.TimeStatistics.Where(a => a.source_id == source_id && a.source_type == source_type && a.employee_id.Equals(Request.Params["employee_id"])).First();
+            //    time_statistic = DocumentorDB.TimeStatistics.Where(a => a.source_id == source_id && a.source_type == source_type && a.student_id.Equals(Request.Params["student_id"])).First();
             //    time_statistic.duration = time_statistic.duration + duration;
             //}
             //else
             //{
-            //    time_statistic.employee_id = Request.Params["employee_id"];
+            //    time_statistic.student_id = Request.Params["student_id"];
             //    time_statistic.source_type = source_type;
             //    time_statistic.source_id = source_id;
             //    time_statistic.duration = duration;
@@ -88,16 +88,16 @@ namespace KotakDocuMentor.Controllers
         public ActionResult UserStats()
         {
             var user_info = new Dictionary<int, UserInfo>();
-            string employee_id = Request.Params["employee_id"];
+            int student_id = int.Parse(Request.Params["student_id"]);
             List<Docucheck> records;
             if ((Request.Params["assignment_type"]).Equals(null))
             {
-                List<int> assignment_ids = DocumentorDB.Assignments.Where(a => a.employee_id.Equals(Request.Params["employee_id"])).Select(a => a.id).ToList();
+                List<int> assignment_ids = DocumentorDB.Assignments.Where(a => a.student_id.Equals(student_id)).Select(a => a.id).ToList();
                 records = DocumentorDB.Docuchecks.Where(a => assignment_ids.Contains(a.assignment_id??0)).ToList();
             }
             else
             {
-                List<int> assignment_ids = DocumentorDB.Assignments.Where(a => a.employee_id.Equals(Request.Params["employee_id"]) && a.AssignmentInfos.First().istest.Equals(bool.Parse(Request.Params["assignment_type"]))).Select(a => a.id).ToList();
+                List<int> assignment_ids = DocumentorDB.Assignments.Where(a => a.student_id.Equals(student_id) && a.istest.Equals(bool.Parse(Request.Params["isTest"])) && a.ispractice.Equals(bool.Parse(Request.Params["isPractice"]))).Select(a => a.id).ToList();
                 records = DocumentorDB.Docuchecks.Where(a => assignment_ids.Contains(a.assignment_id ?? 0)).ToList();
             }
             if(Request.Params["document_id"]!=null)

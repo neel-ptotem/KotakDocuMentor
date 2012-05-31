@@ -14,9 +14,9 @@ namespace KotakDocuMentor.Controllers
         //
         // GET: /PracticeManagement/
 
-        public ActionResult LandingPage(int employee_id)
+        public ActionResult LandingPage(int student_id)
         {
-            return View();//DocumentorDB.Assignments.Where(a=>a.employee_id==employee_id).ToList());
+            return View();//DocumentorDB.Assignments.Where(a=>a.student_id==student_id).ToList());
         }
 
         [HttpPost]
@@ -44,21 +44,21 @@ namespace KotakDocuMentor.Controllers
         [HttpPost]
         public ActionResult PracticeResult()
         {
-            Docucheck docucheck = DocumentorDB.Docuchecks.Where(a => a.id == Int32.Parse(Request.Params["docucheck_id"])).First();
-            Document document = DocumentorDB.Documents.Where(a => a.id == docucheck.document_id).First();
-            List<FilledSection> filled_sections = docucheck.FilledSections.ToList();
+            //Docucheck docucheck = DocumentorDB.Docuchecks.Where(a => a.id == Int32.Parse(Request.Params["docucheck_id"])).First();
+            //Document document = DocumentorDB.Documents.Where(a => a.id == docucheck.document_id).First();
+            //List<FilledSection> filled_sections = docucheck.FilledSections.ToList();
 
-            foreach (FilledSection fs in filled_sections)
-            {
-                PracticeFilledSection practice_filled_section = new PracticeFilledSection();
-                practice_filled_section.filled_section_id = fs.id;
-                practice_filled_section.answer_given = Boolean.Parse(Request.Params[fs.id.ToString()]);
-                DocumentorDB.PracticeFilledSections.InsertOnSubmit(practice_filled_section);
-                DocumentorDB.SubmitChanges();
-            }
-            if (Int32.Parse(Request.Params["current_page"]) < document.Pages.Count)
-                return RedirectToAction("PracticeDocument", new { docucheck_id = docucheck.id, sequence_number = Int32.Parse(Request.Params["sequence_number"]) + 1 });
-            else
+            //foreach (FilledSection fs in filled_sections)
+            //{
+            //    PracticeFilledSection practice_filled_section = new PracticeFilledSection();
+            //    practice_filled_section.filled_section_id = fs.id;
+            //    practice_filled_section.answer_given = Boolean.Parse(Request.Params[fs.id.ToString()]);
+            //    DocumentorDB.PracticeFilledSections.InsertOnSubmit(practice_filled_section);
+            //    DocumentorDB.SubmitChanges();
+            //}
+            //if (Int32.Parse(Request.Params["current_page"]) < document.Pages.Count)
+            //    return RedirectToAction("PracticeDocument", new { docucheck_id = docucheck.id, sequence_number = Int32.Parse(Request.Params["sequence_number"]) + 1 });
+            //else
                 return View();
                 //return RedirectToAction("ListPracticeDocuments", new { assignment_id = docucheck.assignment_id});            
         }

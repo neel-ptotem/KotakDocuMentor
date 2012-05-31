@@ -12,38 +12,20 @@ namespace KotakDocuMentor.Controllers
         private KotakEmployeeDBDataContext KotakEmployeeDB = new KotakEmployeeDBDataContext();
         private DocumentorDBDataContext DocumentorDB = new DocumentorDBDataContext();
 
-        //[HttpGet]
-        //public void create_quiz_questions()
-        //{
-        //    List<Quiz> quizzes = DocumentorDB.Quizs.ToList();
-        //    List<Question> questions = DocumentorDB.Questions.ToList();
-        //    foreach(Quiz quiz in quizzes)
-        //    {
-        //        foreach(Question question in questions)
-        //        {
-        //            QuizQuestion qq = new QuizQuestion();
-        //            qq.quiz_id = quiz.id;
-        //            qq.question_id = question.id;
-        //            DocumentorDB.QuizQuestions.InsertOnSubmit(qq);
-        //        }
-        //    }
-        //    DocumentorDB.SubmitChanges();
-        //}
-
         [HttpGet]
         public ActionResult GetStatus()
         {
             int status = 0;
-            Guid employee_id = KotakEmployeeDB.Employees.Where(a => a.UserLoginName.Equals(Request.Params["employee_id"])).First().ID;
+            int student_id = int.Parse(Request.Params["student_id"]);
 
             //Active Practice
-            if (DocumentorDB.AssignmentInfos.Where(a => a.Assignment.employee_id.Equals(employee_id) && a.istest == false && a.isstarted == true && a.iscomplete == false).ToList().Count > 0)
+            if (DocumentorDB.Assignments.Where(a => a.student_id.Equals(student_id) && a.istest == false && a.iscomplete != true).ToList().Count > 0)
             {
                 status = 1;
             }
 
             //Active test
-            if (DocumentorDB.AssignmentInfos.Where(a => a.Assignment.employee_id.Equals(employee_id) && a.istest == true && a.isstarted == true && a.iscomplete == false).ToList().Count > 0)
+            if (DocumentorDB.Assignments.Where(a => a.student_id.Equals(student_id) && a.istest == true && a.iscomplete == false).ToList().Count > 0)
             {
                 status = 2;
             }
@@ -56,18 +38,17 @@ namespace KotakDocuMentor.Controllers
         [HttpGet]
         public ActionResult Documentor()
         {
-            string employee_id;
-            employee_id = KotakEmployeeDB.Employees.Where(a => a.UserLoginName.Equals(Request.Params["employee_id"])).First().ID.ToString();
+            int student_id = DocumentorDB.Students.Where(a => a.username.Equals(Request.Params["student_id"])).First().id;
             bool istest = bool.Parse(Request.Params["istest"]);
             bool ispractice = bool.Parse(Request.Params["ispractice"]);
             Assignment assignment;
             //If assignment exists
-            if (DocumentorDB.Assignments.Where(a => a.employee_id == employee_id && a.ispractice.Equals(istest) && a.istest.Equals(ispractice) && a.iscomplete == false).ToList().Count != 0)
-                assignment = DocumentorDB.Assignments.Where(a => a.employee_id == employee_id).First();
+            if (DocumentorDB.Assignments.Where(a => a.student_id == student_id && a.ispractice.Equals(istest) && a.istest.Equals(ispractice) && a.iscomplete == false).ToList().Count != 0)
+                assignment = DocumentorDB.Assignments.Where(a => a.student_id == student_id).First();
             else //If assignment doesn't exists
             {
                 Assignment a_new = new Assignment();
-                a_new.employee_id = employee_id;
+                a_new.student_id = student_id;
                 List<CaseStudy> case_studies;
                 if (istest)
                     case_studies = DocumentorDB.CaseStudies.Where(cs => cs.CaseStudyDockets.Count > 0 && cs.CaseStudyQuizs.Where(csq => csq.Quiz.isonline == true).Count() > 0).ToList();
@@ -83,16 +64,10 @@ namespace KotakDocuMentor.Controllers
                 a_new.case_study_id = case_studies[new_case_study].id;
                 DocumentorDB.Assignments.InsertOnSubmit(a_new);
                 DocumentorDB.SubmitChanges();
-                assignment = DocumentorDB.Assignments.Where(a => a.employee_id == employee_id).First();
+                assignment = DocumentorDB.Assignments.Where(a => a.student_id == student_id).First();
                 assignment.create_quiz();
                 assignment.create_docuchecks();
             }
-            AssignmentInfo ai = new AssignmentInfo();
-            ai.assignment_id = assignment.id;
-            ai.istest = bool.Parse(Request.Params["IsTest"]);
-            ai.isstarted = true;
-            DocumentorDB.AssignmentInfos.InsertOnSubmit(ai);
-            DocumentorDB.SubmitChanges();
             if (istest)
                 return RedirectToAction("PlayQuiz", new { assignment_id = assignment.id });
             else if (ispractice)
@@ -144,33 +119,6 @@ namespace KotakDocuMentor.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult PlayRQuiz()
-        {
-            Assignment assignment = DocumentorDB.Assignments.Where(a => a.id == Int32.Parse(Request.Params["assignment_id"])).First();
-            Quiz quiz = DocumentorDB.Quizs.Where(a => a.id == assignment.CaseStudy.CaseStudyQuizs.First().quiz_id).First();
-            var quiz_questions = new Dictionary<int, QuestionAnswers>();
-            List<Response> responses = new List<Response>();
-            foreach (Question q in quiz.QuizQuestions.Select(a => a.Question).ToList())
-            {
-                quiz_questions.Add(q.id, new QuestionAnswers(q.id, q.question_content, q.question_type_id == 1 || q.question_type_id == 2 ? true : false, q.AnswerChoices.ToList()));
-                Response r = new Response();
-                r.assignment_id = assignment.id;
-                r.question_id = q.id;
-                r.Question = q;
-                responses.Add(r);
-            }
-            ViewData["assignment"] = assignment;
-            ViewData["quiz"] = quiz;
-            //ViewData["quiz_questions"] = quiz.QuizQuestions.Select(a => a.Question).ToList();
-            ViewData["quiz_questions"] = quiz_questions;
-            ViewData["responses"] = responses;
-            ViewData["len"] = responses.Count;
-            ViewData["time_alloted"] = 30;
-            return View();
-        }
-
-
         [HttpPost]
         public ActionResult SaveQuizData()
         {
@@ -189,7 +137,7 @@ namespace KotakDocuMentor.Controllers
                 }
             }
             DocumentorDB.SubmitChanges();
-            assignment.calculate_quiz_score();
+            //assignment.calculate_quiz_score();
             //quiz.score = score;
             //DocumentorDB.SubmitChanges();
             Random r = new Random();
@@ -361,7 +309,7 @@ namespace KotakDocuMentor.Controllers
         {
             CaseStudy case_study = DocumentorDB.CaseStudies.Where(a => a.id == Int32.Parse(Request.Params["case_study_id"])).First();
             Assignment assignment = new Assignment();
-            assignment.employee_id = KotakEmployeeDB.Employees.Where(a => a.UserLoginName.Equals(Request.Params["employee_id"])).First().ID.ToString();
+            assignment.student_id = DocumentorDB.Students.Where(a => a.username.Equals(Request.Params["student_id"])).First().id;
             assignment.case_study_id = case_study.id;
             DocumentorDB.Assignments.InsertOnSubmit(assignment);
             return (RedirectToAction("PlayQuiz", new { assignment_id = assignment.id }));
@@ -386,27 +334,27 @@ namespace KotakDocuMentor.Controllers
         [HttpGet]
         public ActionResult UserStatistics()
         {
-            string employee_id = Request.Params["employee_id"];
-            List<Docket> dockets = DocumentorDB.Dockets.ToList();
-            List<Document> documents = DocumentorDB.Documents.ToList();
-            var DocketStatistics = new Dictionary<int, ResultInfo>();
-            var DocumentStatistics = new Dictionary<int, ResultInfo>();
-            foreach (Document doc in documents)
-            {
-                double score=0;
-                string name = doc.name;
-                score += double.Parse(doc.Docuchecks.Where(a => a.played == true).Select(a => a.score??0).ToString());
-                DocumentStatistics.Add(doc.id, new ResultInfo(doc.name, score, doc.Docuchecks.Where(a => a.played == true).ToList().Count));
-            }
-            foreach (Docket doc in dockets)
-            {
-                double score = 0;
-                string name = doc.name;
-                score += double.Parse(doc.Docuchecks.Where(a => a.played == true).Select(a => a.score ?? 0).ToString());
-                DocketStatistics.Add(doc.id, new ResultInfo(doc.name, score, doc.Docuchecks.Where(a => a.played == true).ToList().Count));
-            }
-            ViewData["DocketStat"] = DocketStatistics;
-            ViewData["DocuStat"] = DocumentStatistics;
+            //string student_id = Request.Params["student_id"];
+            //List<Docket> dockets = DocumentorDB.Dockets.ToList();
+            //List<Document> documents = DocumentorDB.Documents.ToList();
+            //var DocketStatistics = new Dictionary<int, ResultInfo>();
+            //var DocumentStatistics = new Dictionary<int, ResultInfo>();
+            //foreach (Document doc in documents)
+            //{
+            //    double score=0;
+            //    string name = doc.name;
+            //    score += double.Parse(doc.Docuchecks.Where(a => a.played == true).Select(a => a.score??0).ToString());
+            //    DocumentStatistics.Add(doc.id, new ResultInfo(doc.name, score, doc.Docuchecks.Where(a => a.played == true).ToList().Count));
+            //}
+            //foreach (Docket doc in dockets)
+            //{
+            //    double score = 0;
+            //    string name = doc.name;
+            //    score += double.Parse(doc.Docuchecks.Where(a => a.played == true).Select(a => a.score ?? 0).ToString());
+            //    DocketStatistics.Add(doc.id, new ResultInfo(doc.name, score, doc.Docuchecks.Where(a => a.played == true).ToList().Count));
+            //}
+            //ViewData["DocketStat"] = DocketStatistics;
+            //ViewData["DocuStat"] = DocumentStatistics;
 
             return View();
         }

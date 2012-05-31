@@ -17,7 +17,7 @@
       20:36 Hours <br/> elapsed
       <br/>
       <br/>
-      <a href="#" class="btn btn-warning btn-large">Take the Quiz</a>
+      <a href="/TestManagement/Documentor?student_id=<%:ViewData["student_id"] %>&isTest=true&isPractice=false" class="btn btn-warning btn-large">Take the Quiz</a>
     </div>
   </div>
   <div class="span8">
@@ -415,7 +415,7 @@
                       </div>
                     </a>
 
-                    <a href="/TestManagement/Documentor?employee_id=<%:ViewData["emp_id"] %>&isTest=false&isPractice=True" class="btn btn-warning" style="overflow:hidden;margin-top:20px;margin-left: 25px;height:240px;width:390px;border-radius: 20px;" target="_blank">
+                    <a href="/TestManagement/Documentor?student_id=<%:ViewData["student_id"] %>&isTest=false&isPractice=True" class="btn btn-warning" style="overflow:hidden;margin-top:20px;margin-left: 25px;height:240px;width:390px;border-radius: 20px;" target="_blank">
                       <img src="/Content/images/general/ImportantDocs.jpg" style="margin-left: -240px;margin-top:-10px;height:270px;width:270px">
 
                       <div style="margin-top: -200px;margin-left: 100px;;color:black; font-size: 48px;">DocuMentor</div>
