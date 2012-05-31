@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.5" name="KotakEmployeeDB">
+  <DataContextMoniker Name="/KotakEmployeeDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="70ee8b2e-7efa-4240-9eea-f9881a026f3d" absoluteBounds="4.125, 1.5, 2, 7.7322412109375005">
+      <DataClassMoniker Name="/KotakEmployeeDBDataContext/Employee" />
+      <nestedChildShapes>
+        <elementListCompartment Id="80907a58-709d-4c23-9278-9b813f32fe13" absoluteBounds="4.14, 1.96, 1.9700000000000002, 7.1722412109375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

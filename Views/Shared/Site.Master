@@ -1,0 +1,40 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <script type="text/javascript" src="/Scripts/javascripts/jquery.js" language="javascript"></script>
+    <script type="text/javascript" src="/Scripts/javascripts/jquery_ujs.js" language="javascript"></script>
+    <script type="text/javascript" src="/Scripts/javascripts/jquery_ui.js" language="javascript"></script>
+    <script type="text/javascript" src="/Scripts/javascripts/bootstrap/bootstrap.min.js" language="javascript"></script>
+    <script type="text/javascript" src="/Scripts/javascripts/bootstrap/bootstrap.js" language="javascript"></script>
+    <script type="text/javascript" src="/Scripts/javascripts/gritter.js" language="javascript"></script>
+
+    <%--<script type="text/javascript" src="/Scripts/sco_api.js"></script>--%>
+    <link href="/Scripts/stylesheets/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/Scripts/stylesheets/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/Scripts/stylesheets/documentor.css" rel="stylesheet" type="text/css" />
+    <link href="/Scripts/stylesheets/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/Scripts/stylesheets/gritter.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="ScriptHolder" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+<div id="wrapper">
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid" style="position: relative;">
+        <a class="brand" href="/Documentor">Go to HomePage</a>        
+      </div>
+    </div>
+  </div>
+  <asp:ContentPlaceHolder ID="MainContent" runat="server" />            
+  <div class="container-fluid">
+    
+  </div>
+</div>
+
+</body>
+</html>
