@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="TheCoachDB">
+  <DataContextMoniker Name="/TheCoachDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="7e5bc337-ea2c-4aad-a8c7-d958edf87db3" absoluteBounds="3.875, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/TheCoachDBDataContext/Module" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e67409ce-924c-42f2-81f6-f2a209cf03df" absoluteBounds="3.89, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="40066a34-b1f6-406a-afb9-856778e8a794" absoluteBounds="8.75, 0.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/TheCoachDBDataContext/Section" />
+      <nestedChildShapes>
+        <elementListCompartment Id="36df795e-387c-4b5c-b53f-2edd397e8bb2" absoluteBounds="8.765, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.875 : 1.53929768880208); (8.75 : 1.53929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/TheCoachDBDataContext/Module/Module_section" />
+      <nodes>
+        <classShapeMoniker Id="7e5bc337-ea2c-4aad-a8c7-d958edf87db3" />
+        <classShapeMoniker Id="40066a34-b1f6-406a-afb9-856778e8a794" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

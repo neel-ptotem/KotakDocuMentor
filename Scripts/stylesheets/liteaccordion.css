@@ -72,6 +72,7 @@ border-bottom: 1px solid white;
 .basic .slide > h2 {
 border-bottom: 1px solid white;
     background: #360202; /* Old browsers */
+    background-image:url('/Content/images/general/grad_bg.png');
     background: -moz-linear-gradient(top,  rgb(255,48,25) 0%, rgb(86,1,11) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(255,48,25)), color-stop(100%,rgb(86,1,11))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top,  rgb(255,48,25) 0%,rgb(86,1,11) 100%); /* Chrome10+,Safari5.1+ */

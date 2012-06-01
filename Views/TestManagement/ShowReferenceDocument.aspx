@@ -22,7 +22,7 @@
   <% foreach (KotakDocuMentor.Models.FilledSection filled_section in (List<KotakDocuMentor.Models.FilledSection>)ViewData["filled_sections"])
      { %>
       <% KotakDocuMentor.Models.BlankSection blank_section = filled_section.BlankSection; %>
-      <img alt="" src="/Content/example_images/<%: filled_section.example_id%>/medium/<%: filled_section.Example.example_image_file_name%>" id="<%: filled_section.id %>" class="option_image" style = "position :absolute;z-index:5000;top :<%: blank_section.ypos%>px; left: <%:blank_section.xpos%>px; width: <%:blank_section.width%>px;height:<%:blank_section.height%>px;" />
+      <img alt="" src="/Content/images/examples/<%: filled_section.example_id%>/medium/<%: filled_section.Example.example_image_file_name%>" id="<%: filled_section.id %>" class="option_image" style = "position :absolute;z-index:5000;top :<%: blank_section.ypos%>px; left: <%:blank_section.xpos%>px; width: <%:blank_section.width%>px;height:<%:blank_section.height%>px;" />
   <% } %>
 </div>
 
@@ -47,7 +47,7 @@
             height: 1080px;
             margin: 0px auto;
             padding: 0px;
-            background-image: url("/Content/blank_forms/<%:((KotakDocuMentor.Models.Page)ViewData["page"]).id %>/medium/<%:((KotakDocuMentor.Models.Page)ViewData["page"]).blank_form_file_name %>");
+            background-image: url("/Content/images/blank_forms/<%:((KotakDocuMentor.Models.Page)ViewData["page"]).id %>/medium/<%:((KotakDocuMentor.Models.Page)ViewData["page"]).blank_form_file_name %>");
             background-repeat: no-repeat;
         }
 

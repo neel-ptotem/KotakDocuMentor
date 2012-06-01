@@ -12,8 +12,8 @@ namespace KotakDocuMentor.Models
 
             if (this.FilledSections.Count == 0)
             {
-                Document document = this.Document;
-                Assignment assignment = this.Assignment;
+                Document document = DocumentorDBM.Documents.Where(a => a.id == this.document_id).First();
+                Assignment assignment = DocumentorDBM.Assignments.Where(a => a.id == this.assignment_id).First();
                 CaseStudy case_study = assignment.CaseStudy;
                 List<Page> pages = document.Pages.ToList();
                 List<BlankSection> blank_sections = new List<BlankSection>();
@@ -42,10 +42,16 @@ namespace KotakDocuMentor.Models
                         Random r_id = new Random();
                         int new_no = r_id.Next(100);
                         //decide what reference set to use
-                        if (new_no>50)
+                        if (new_no > 50)
+                        {
                             reference_set = this.ReferenceSet;
+                            filled_section.has_no_error = true;
+                        }
                         else
-                            reference_set=this.Docket.SuperSet.ReferenceSets.Where(a=>a.id!=this.reference_set_id).ToArray()[r_id.Next(this.Docket.SuperSet.ReferenceSets.ToList().Count-1)];                        
+                        {
+                            reference_set = this.Docket.SuperSet.ReferenceSets.Where(a => a.id != this.reference_set_id).ToArray()[r_id.Next(this.Docket.SuperSet.ReferenceSets.ToList().Count - 1)];
+                            filled_section.has_no_error = false;
+                        }
                         if (reference_set.correct!=true && reference_set.id!=this.reference_set_id)
                         {
                             
@@ -172,7 +178,7 @@ namespace KotakDocuMentor.Models
 
         public void create_docuchecks()
         {
-            CaseStudy case_study = DocumentorDBM.CaseStudies.Where(a => a.id == this.case_study_id).First();
+            CaseStudy case_study = this.CaseStudy;
             List<CaseStudyDocket> case_study_dockets = case_study.CaseStudyDockets.ToList();
             List<Docket> dockets = new List<Docket>();
             List<Document> documents = new List<Document>();

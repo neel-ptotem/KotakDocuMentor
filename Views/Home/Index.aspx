@@ -10,10 +10,10 @@
   <div class="span4">
     <br/>
 
-    <img src="/Content/images/general/logo.png" class="span8"/>
-    <img src="/Content/images/general/hourglass.gif" style="margin-top:50px" class="span5"/>
+    <img src="/Content/images/general/logo.png" class="span4"/>
+    <img src="/Content/images/general/hourglass.gif" style="margin-top:50px"/>
 
-    <div style="margin-top: +350px;margin-left: -100px;color:white;font-size: 18px">
+    <div style="margin-top: -110px;margin-left: 120px;color:white;font-size: 18px">
       20:36 Hours <br/> elapsed
       <br/>
       <br/>
@@ -23,7 +23,7 @@
   <div class="span8">
     <div class="slider" style="float:right;margin-bottom:0">
       <ol>
-        <li>
+        <li style="border:2px;">
           <h2><span>Introduction</span></h2>
           <div>
             <div style="padding:20px;">

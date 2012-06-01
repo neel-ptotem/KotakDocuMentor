@@ -27,10 +27,10 @@
     </div>
     <br>
     <div class="span7" style="height:360px;overflow:auto; margin-left:50px;padding:20px;">
-      <ul>
+      <ul style="line-height:0px;">
         <% foreach(KotakDocuMentor.Models.Document doc in ViewData["documents"] as List<KotakDocuMentor.Models.Document>){%>
-        <li><a href="/Content/html_pages/documents/SanctionLetter.html"><%: doc.name %></li>
-        <%--<li><a href="/Content/html_pages/documents/<%: doc.name %>.html"><%: doc.name %></li>--%>
+        <li><a href="/Content/html_pages/documents/SanctionLetter.html"><%: doc.name %></a></li>
+        
         <% } %>
       </ul>
     </div>
@@ -82,14 +82,13 @@ li{
   line-height:24px;
   margin-bottom:3px;
   list-style-type:none;
-  background: rgb(0,0,0); /* Old browsers */
+  background: rgb(160,48,48); /* Old browsers */
   background: -moz-linear-gradient(-45deg,  rgb(169,3,41) 0%, rgb(143,2,34) 44%, rgb(109,0,25) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgb(169,3,41)), color-stop(44%,rgb(143,2,34)), color-stop(100%,rgb(109,0,25))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(-45deg,  rgb(169,3,41) 0%,rgb(143,2,34) 44%,rgb(109,0,25) 100%); /* Chrome10+,Safari5.1+ */
   background: -o-linear-gradient(-45deg,  rgb(169,3,41) 0%,rgb(143,2,34) 44%,rgb(109,0,25) 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(-45deg,  rgb(169,3,41) 0%,rgb(143,2,34) 44%,rgb(109,0,25) 100%); /* IE10+ */
   background: linear-gradient(-45deg,  rgb(169,3,41) 0%,rgb(143,2,34) 44%,rgb(109,0,25) 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  */
 
 }
 

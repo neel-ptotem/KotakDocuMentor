@@ -38,7 +38,7 @@ namespace KotakDocuMentor.Controllers
         [HttpGet]
         public ActionResult Documentor()
         {
-            int student_id = DocumentorDB.Students.Where(a => a.username.Equals(Request.Params["student_id"])).First().id;
+            int student_id = DocumentorDB.Students.Where(a => a.id.Equals(Request.Params["student_id"])).First().id;
             bool istest = bool.Parse(Request.Params["istest"]);
             bool ispractice = bool.Parse(Request.Params["ispractice"]);
             Assignment assignment;
@@ -62,6 +62,7 @@ namespace KotakDocuMentor.Controllers
                 Random r_no = new Random();
                 int new_case_study = r_no.Next(case_studies.Count);
                 a_new.case_study_id = case_studies[new_case_study].id;
+                a_new.level_id = DocumentorDB.Levels.First().id;
                 DocumentorDB.Assignments.InsertOnSubmit(a_new);
                 DocumentorDB.SubmitChanges();
                 assignment = DocumentorDB.Assignments.Where(a => a.student_id == student_id).First();

@@ -44,13 +44,13 @@
       <% KotakDocuMentor.Models.Example example = filled_section.Example; %>
       <% if (example.is_image == true)
          { %>
-          <img src="/Content/examples/<%: example.id%>/medium/<%: example.example_image_file_name%>" id="<%:filled_section.id%>" class=" btn-correct option_image" style="position :absolute;z-index:5000;top :<%:blank_section.ypos%>px;left: <%:blank_section.xpos%>px; height:<%:blank_section.height%>px;width:<%:blank_section.width%>px;" alt=""/>
+          <img src="/Content/images/examples/<%: example.id%>/medium/<%: example.example_image_file_name%>" id="<%:filled_section.id%>" class=" btn-correct option_image" style="position :absolute;top :<%:blank_section.ypos%>px;left: <%:blank_section.xpos%>px; height:<%:blank_section.height%>px;width:<%:blank_section.width%>px;" alt=""/>
       <% } %>
       <% else
          { %>
-          <p class="btn-correct option_image" id="<%= filled_section.id %>"style="position :absolute;z-index:5000;top :<%= blank_section.ypos%>px;left:<%=blank_section.xpos %>px;width:<%=blank_section.width %>px;height:<%=blank_section.height %>px;"><%:example.text_content%></p>
+          <p class="btn-correct option_image" id="<%= filled_section.id %>"style="position :absolute;z-index:5000;top :<%= blank_section.ypos+35%>px;left:<%=blank_section.xpos %>px;width:<%=blank_section.width %>px;height:<%=blank_section.height %>px;"><%:example.text_content%></p>
       <% } %>     
-      <img src= "/Content/images/images/cross.jpeg" style="position :absolute;z-index:6000;top:<%:blank_section.ypos%>px;left:<%:blank_section.xpos%>px;visibility:hidden;background:transparent" class="<%:filled_section.id%>" height="32px" width="32px" alt="close"/>
+      <img src= "/Content/images/general/cross.jpeg" style="position :absolute;z-index:6000;top:<%:blank_section.ypos+32%>px;left:<%:blank_section.xpos%>px;visibility:hidden;background:transparent" class="<%:filled_section.id%>" height="32px" width="32px" alt="close"/>
       <% } %>
 </div>
 
