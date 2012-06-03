@@ -28,3 +28,9 @@ E:\Documentor_Git\KotakDocuMentor\obj\Debug\ResolveAssemblyReference.cache
 E:\Documentor_Git\KotakDocuMentor\obj\Debug\KotakDocuMentor.csproj.ResolveComReference.cache
 E:\Documentor_Git\KotakDocuMentor\obj\Debug\KotakDocuMentor.dll
 E:\Documentor_Git\KotakDocuMentor\obj\Debug\KotakDocuMentor.pdb
+I:\GitDocumentor\test\KotakDocuMentor\bin\KotakDocuMentor.dll
+I:\GitDocumentor\test\KotakDocuMentor\bin\KotakDocuMentor.pdb
+I:\GitDocumentor\test\KotakDocuMentor\obj\Debug\ResolveAssemblyReference.cache
+I:\GitDocumentor\test\KotakDocuMentor\obj\Debug\KotakDocuMentor.csproj.ResolveComReference.cache
+I:\GitDocumentor\test\KotakDocuMentor\obj\Debug\KotakDocuMentor.dll
+I:\GitDocumentor\test\KotakDocuMentor\obj\Debug\KotakDocuMentor.pdb

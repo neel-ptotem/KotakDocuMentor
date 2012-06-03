@@ -30,12 +30,12 @@ namespace KotakDocuMentor.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertModule(Module instance);
-    partial void UpdateModule(Module instance);
-    partial void DeleteModule(Module instance);
     partial void InsertSection(Section instance);
     partial void UpdateSection(Section instance);
     partial void DeleteSection(Section instance);
+    partial void InsertModule(Module instance);
+    partial void UpdateModule(Module instance);
+    partial void DeleteModule(Module instance);
     #endregion
 		
 		public TheCoachDBDataContext() : 
@@ -68,14 +68,6 @@ namespace KotakDocuMentor.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Module> Modules
-		{
-			get
-			{
-				return this.GetTable<Module>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Section> Sections
 		{
 			get
@@ -83,167 +75,13 @@ namespace KotakDocuMentor.Models
 				return this.GetTable<Section>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.modules")]
-	public partial class Module : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private string _description;
-		
-		private string _html_content;
-		
-		private EntitySet<Section> _Sections;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    partial void Onhtml_contentChanging(string value);
-    partial void Onhtml_contentChanged();
-    #endregion
-		
-		public Module()
-		{
-			this._Sections = new EntitySet<Section>(new Action<Section>(this.attach_Sections), new Action<Section>(this.detach_Sections));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		public System.Data.Linq.Table<Module> Modules
 		{
 			get
 			{
-				return this._id;
+				return this.GetTable<Module>();
 			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_html_content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string html_content
-		{
-			get
-			{
-				return this._html_content;
-			}
-			set
-			{
-				if ((this._html_content != value))
-				{
-					this.Onhtml_contentChanging(value);
-					this.SendPropertyChanging();
-					this._html_content = value;
-					this.SendPropertyChanged("html_content");
-					this.Onhtml_contentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_section", Storage="_Sections", ThisKey="id", OtherKey="module_id")]
-		public EntitySet<Section> Sections
-		{
-			get
-			{
-				return this._Sections;
-			}
-			set
-			{
-				this._Sections.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Sections(Section entity)
-		{
-			this.SendPropertyChanging();
-			entity.Module = this;
-		}
-		
-		private void detach_Sections(Section entity)
-		{
-			this.SendPropertyChanging();
-			entity.Module = null;
 		}
 	}
 	
@@ -391,7 +229,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_section", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="module_Section", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
 		public Module Module
 		{
 			get
@@ -443,6 +281,192 @@ namespace KotakDocuMentor.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.modules")]
+	public partial class Module : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _description;
+		
+		private string _body_content;
+		
+		private string _script_content;
+		
+		private EntitySet<Section> _Sections;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void Onbody_contentChanging(string value);
+    partial void Onbody_contentChanged();
+    partial void Onscript_contentChanging(string value);
+    partial void Onscript_contentChanged();
+    #endregion
+		
+		public Module()
+		{
+			this._Sections = new EntitySet<Section>(new Action<Section>(this.attach_Sections), new Action<Section>(this.detach_Sections));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_body_content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string body_content
+		{
+			get
+			{
+				return this._body_content;
+			}
+			set
+			{
+				if ((this._body_content != value))
+				{
+					this.Onbody_contentChanging(value);
+					this.SendPropertyChanging();
+					this._body_content = value;
+					this.SendPropertyChanged("body_content");
+					this.Onbody_contentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_script_content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string script_content
+		{
+			get
+			{
+				return this._script_content;
+			}
+			set
+			{
+				if ((this._script_content != value))
+				{
+					this.Onscript_contentChanging(value);
+					this.SendPropertyChanging();
+					this._script_content = value;
+					this.SendPropertyChanged("script_content");
+					this.Onscript_contentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="module_Section", Storage="_Sections", ThisKey="id", OtherKey="module_id")]
+		public EntitySet<Section> Sections
+		{
+			get
+			{
+				return this._Sections;
+			}
+			set
+			{
+				this._Sections.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Sections(Section entity)
+		{
+			this.SendPropertyChanging();
+			entity.Module = this;
+		}
+		
+		private void detach_Sections(Section entity)
+		{
+			this.SendPropertyChanging();
+			entity.Module = null;
 		}
 	}
 }

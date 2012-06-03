@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CoachController.cs" />
     <Compile Include="Controllers\DocucheckController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -394,7 +395,15 @@
     <Content Include="Views\Admin\GetDivisionReport.aspx" />
     <Content Include="Views\Admin\GetReport.aspx" />
     <Content Include="Views\Admin\NewQuiz.aspx" />
+    <Content Include="Views\Coach\module_2.aspx" />
+    <Content Include="Views\Coach\module_3.aspx" />
+    <Content Include="Views\Coach\module_4.aspx" />
+    <Content Include="Views\Coach\module_5.aspx" />
+    <Content Include="Views\Coach\module_6.aspx" />
+    <Content Include="Views\Coach\module_content.aspx" />
+    <Content Include="Views\Coach\module_1.aspx" />
     <Content Include="Views\Home\Doclauncher.aspx" />
+    <Content Include="Views\Coach\Documentor.aspx" />
     <Content Include="Views\Home\intro.ascx" />
     <Content Include="Views\Question\Create.aspx" />
     <Content Include="Views\Question\Index.aspx" />
