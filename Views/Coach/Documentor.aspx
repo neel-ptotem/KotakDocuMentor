@@ -43,11 +43,17 @@
     <link href="/Scripts/stylesheets/gridNavigation.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(function () {
-
+    alert("<%=Session["student_id"] %>");
     <% foreach (KotakDocuMentor.Models.Module module in ViewData["modules"] as List<KotakDocuMentor.Models.Module>)
       { %>          
             $("#module-<%:module.id %>").load("/Coach/module_content?module_id=<%:module.id %>");        
     <%} %>
+    $("h2").click(function(){
+    var module_content_div=$(this).parent().children("div");
+    var module_id=module_content_div.attr("id");
+    module_id=module_id.charAt(module_id.length-1);
+    module_content_div.load("/Coach/module_content?student_id="+<%:ViewData["student_id"]%>+"&module_id="+module_id);
+    });
     
     $('#tj_container').gridnav({
             rows: 4,

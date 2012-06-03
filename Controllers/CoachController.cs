@@ -15,14 +15,18 @@ namespace KotakDocuMentor.Controllers
         {
             ViewData["body_content"]=CoachDB.Modules.Where(a => a.id.Equals(Request.Params["module_id"])).First().body_content;
             ViewData["script_content"] = CoachDB.Modules.Where(a => a.id.Equals(Request.Params["module_id"])).First().script_content;
-            //return View("module_"+Request.Params["module_id"]);
-            return View("module_content");
+            if(Request.Params["student_id"]=="1")
+                return View("module_"+Request.Params["module_id"]);
+            else
+                return View("module_content");
         }
 
         [HttpGet]
         public ActionResult Documentor()
         {
+            Session["student_id"] = "Indraneel More";
             ViewData["modules"] = CoachDB.Modules.ToList();
+            ViewData["student_id"] = 1;
             return View();
         }
 

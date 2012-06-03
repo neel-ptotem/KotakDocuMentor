@@ -456,6 +456,9 @@
 
 <script type="text/javascript">
     $(function () {
+        
+        alert("<%=Session["student_id"] %>");
+
         $('#tj_container').gridnav({
             rows: 4,
             type: {

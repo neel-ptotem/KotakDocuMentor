@@ -7,8 +7,10 @@
     <title>module_content</title>
     </head>
 <body>
-  
-<h1> Yeah! Error</h1>    
+<div style="border-radius:20px;background-color:Silver;margin:10%;">
+<h1 style="padding:25% 25% 25% 25%;text-align:center; ">Please complete previous modules</h1>    
+</div>  
+
   
 </body>
 </html>
