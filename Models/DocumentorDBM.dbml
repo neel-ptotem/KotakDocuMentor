@@ -273,6 +273,7 @@
       <Column Name="time_spend" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="unique_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
       <Association Name="Student_Assignment" Member="Assignments" ThisKey="id" OtherKey="student_id" Type="Assignment" />
+      <Association Name="Student_user_progress" Member="UserProgresses" ThisKey="id" OtherKey="student_id" Type="UserProgress" />
     </Type>
   </Table>
   <Table Name="dbo.assignments" Member="Assignments">
@@ -289,7 +290,7 @@
       <Association Name="Assignment_Docucheck" Member="Docuchecks" ThisKey="id" OtherKey="document_id" Type="Docucheck" />
       <Association Name="CaseStudy_Assignment" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Student_Assignment" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="level_Assignment" Member="Level" ThisKey="level_id" OtherKey="id" Type="Level" IsForeignKey="true" />
+      <Association Name="Level_Assignment" Member="Level" ThisKey="level_id" OtherKey="id" Type="Level" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.docuchecks" Member="Docuchecks">
@@ -313,7 +314,28 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="difficulty" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="level_Assignment" Member="Assignments" ThisKey="id" OtherKey="level_id" Type="Assignment" />
+      <Association Name="Level_Assignment" Member="Assignments" ThisKey="id" OtherKey="level_id" Type="Assignment" />
+    </Type>
+  </Table>
+  <Table Name="dbo.modules" Member="Modules">
+    <Type Name="Module">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="body_content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="script_content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Module_user_progress" Member="UserProgresses" ThisKey="id" OtherKey="module_id" Type="UserProgress" />
+    </Type>
+  </Table>
+  <Table Name="dbo.user_progress" Member="UserProgresses">
+    <Type Name="UserProgress">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="module_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="resource_no" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="student_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isComplete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Module_user_progress" Member="Module" ThisKey="module_id" OtherKey="id" Type="Module" IsForeignKey="true" />
+      <Association Name="Student_user_progress" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

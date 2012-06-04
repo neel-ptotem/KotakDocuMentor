@@ -95,11 +95,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KotakEmployeeDB.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\TheCoachDB.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TheCoachDB.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -394,6 +389,7 @@
     <Content Include="Scripts\stylesheets\Site.css" />
     <Content Include="Views\Admin\GetDivisionReport.aspx" />
     <Content Include="Views\Admin\GetReport.aspx" />
+    <Content Include="Views\Admin\Index.aspx" />
     <Content Include="Views\Admin\NewQuiz.aspx" />
     <Content Include="Views\Coach\module_2.aspx" />
     <Content Include="Views\Coach\module_3.aspx" />
@@ -477,11 +473,6 @@
       <LastGenOutput>KotakEmployeeDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Models\TheCoachDB.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>TheCoachDB.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Scripts\javascripts\exclusions\jquery.gridnav.js~" />
     <None Include="Scripts\javascripts\jquery.checkbox.js~" />
   </ItemGroup>
@@ -525,11 +516,6 @@
   <ItemGroup>
     <None Include="Models\KotakEmployeeDB.dbml.layout">
       <DependentUpon>KotakEmployeeDB.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Models\TheCoachDB.dbml.layout">
-      <DependentUpon>TheCoachDB.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

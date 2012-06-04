@@ -21,8 +21,8 @@
            <ol>
            <% foreach (KotakDocuMentor.Models.Module module in ViewData["modules"] as List<KotakDocuMentor.Models.Module>)
               { %>
-                <li>
-                    <h2><span><%:module.description %></span></h2>
+                <li id="tes">
+                    <h2><span id="test"><%:module.description %></span></h2>
                         <div class="module" id="module-<%:module.id %>"></div>
                 </li>
             <%} %>
@@ -43,16 +43,35 @@
     <link href="/Scripts/stylesheets/gridNavigation.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(function () {
-    alert("<%=Session["student_id"] %>");
+
+//    alert("<%=Session["student_id"] %>");
     <% foreach (KotakDocuMentor.Models.Module module in ViewData["modules"] as List<KotakDocuMentor.Models.Module>)
       { %>          
-            $("#module-<%:module.id %>").load("/Coach/module_content?module_id=<%:module.id %>");        
+            $("#module-<%:module.id %>").load("/Coach/module_content?student_id="+<%:ViewData["student_id"]%>+"&module_id="+<%:module.id %>);        
     <%} %>
     $("h2").click(function(){
-    var module_content_div=$(this).parent().children("div");
-    var module_id=module_content_div.attr("id");
-    module_id=module_id.charAt(module_id.length-1);
-    module_content_div.load("/Coach/module_content?student_id="+<%:ViewData["student_id"]%>+"&module_id="+module_id);
+    if ($(this).hasClass("selected")==false)
+    {
+        $(".selected").parent().find("form").submit();
+        var module_content_div=$(this).parent().children("div");
+        var module_id=module_content_div.attr("id");
+        module_id=module_id.charAt(module_id.length-1);
+        module_content_div.html("");
+        module_content_div.load("/Coach/module_content?student_id="+<%:ViewData["student_id"]%>+"&module_id="+module_id,function(){
+            $('.section').click(function(){
+                $("."+$(this).attr("id")).attr("value","1");
+            });
+            $('#form-module-'+module_id).submit(function(){
+            var formdata = $(this).serialize();
+            $.ajax({
+                type: "GET",
+                url: "/Coach/UserProgress",
+                data: formdata,
+             });
+            return false;
+            });
+        });
+        }
     });
     
     $('#tj_container').gridnav({

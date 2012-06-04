@@ -123,6 +123,12 @@ namespace KotakDocuMentor.Models
     partial void InsertLevel(Level instance);
     partial void UpdateLevel(Level instance);
     partial void DeleteLevel(Level instance);
+    partial void InsertModule(Module instance);
+    partial void UpdateModule(Module instance);
+    partial void DeleteModule(Module instance);
+    partial void InsertUserProgress(UserProgress instance);
+    partial void UpdateUserProgress(UserProgress instance);
+    partial void DeleteUserProgress(UserProgress instance);
     #endregion
 		
 		public DocumentorDBDataContext() : 
@@ -400,6 +406,22 @@ namespace KotakDocuMentor.Models
 			get
 			{
 				return this.GetTable<Level>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Module> Modules
+		{
+			get
+			{
+				return this.GetTable<Module>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UserProgress> UserProgresses
+		{
+			get
+			{
+				return this.GetTable<UserProgress>();
 			}
 		}
 	}
@@ -5875,6 +5897,8 @@ namespace KotakDocuMentor.Models
 		
 		private EntitySet<Assignment> _Assignments;
 		
+		private EntitySet<UserProgress> _UserProgresses;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -5894,6 +5918,7 @@ namespace KotakDocuMentor.Models
 		public Student()
 		{
 			this._Assignments = new EntitySet<Assignment>(new Action<Assignment>(this.attach_Assignments), new Action<Assignment>(this.detach_Assignments));
+			this._UserProgresses = new EntitySet<UserProgress>(new Action<UserProgress>(this.attach_UserProgresses), new Action<UserProgress>(this.detach_UserProgresses));
 			OnCreated();
 		}
 		
@@ -6010,6 +6035,19 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_user_progress", Storage="_UserProgresses", ThisKey="id", OtherKey="student_id")]
+		public EntitySet<UserProgress> UserProgresses
+		{
+			get
+			{
+				return this._UserProgresses;
+			}
+			set
+			{
+				this._UserProgresses.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -6037,6 +6075,18 @@ namespace KotakDocuMentor.Models
 		}
 		
 		private void detach_Assignments(Assignment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Student = null;
+		}
+		
+		private void attach_UserProgresses(UserProgress entity)
+		{
+			this.SendPropertyChanging();
+			entity.Student = this;
+		}
+		
+		private void detach_UserProgresses(UserProgress entity)
 		{
 			this.SendPropertyChanging();
 			entity.Student = null;
@@ -6373,7 +6423,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="level_Assignment", Storage="_Level", ThisKey="level_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Level_Assignment", Storage="_Level", ThisKey="level_id", OtherKey="id", IsForeignKey=true)]
 		public Level Level
 		{
 			get
@@ -6938,7 +6988,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="level_Assignment", Storage="_Assignments", ThisKey="id", OtherKey="level_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Level_Assignment", Storage="_Assignments", ThisKey="id", OtherKey="level_id")]
 		public EntitySet<Assignment> Assignments
 		{
 			get
@@ -6981,6 +7031,432 @@ namespace KotakDocuMentor.Models
 		{
 			this.SendPropertyChanging();
 			entity.Level = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.modules")]
+	public partial class Module : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+		private string _description;
+		
+		private string _body_content;
+		
+		private string _script_content;
+		
+		private EntitySet<UserProgress> _UserProgresses;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void Onbody_contentChanging(string value);
+    partial void Onbody_contentChanged();
+    partial void Onscript_contentChanging(string value);
+    partial void Onscript_contentChanged();
+    #endregion
+		
+		public Module()
+		{
+			this._UserProgresses = new EntitySet<UserProgress>(new Action<UserProgress>(this.attach_UserProgresses), new Action<UserProgress>(this.detach_UserProgresses));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_body_content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string body_content
+		{
+			get
+			{
+				return this._body_content;
+			}
+			set
+			{
+				if ((this._body_content != value))
+				{
+					this.Onbody_contentChanging(value);
+					this.SendPropertyChanging();
+					this._body_content = value;
+					this.SendPropertyChanged("body_content");
+					this.Onbody_contentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_script_content", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string script_content
+		{
+			get
+			{
+				return this._script_content;
+			}
+			set
+			{
+				if ((this._script_content != value))
+				{
+					this.Onscript_contentChanging(value);
+					this.SendPropertyChanging();
+					this._script_content = value;
+					this.SendPropertyChanged("script_content");
+					this.Onscript_contentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_user_progress", Storage="_UserProgresses", ThisKey="id", OtherKey="module_id")]
+		public EntitySet<UserProgress> UserProgresses
+		{
+			get
+			{
+				return this._UserProgresses;
+			}
+			set
+			{
+				this._UserProgresses.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_UserProgresses(UserProgress entity)
+		{
+			this.SendPropertyChanging();
+			entity.Module = this;
+		}
+		
+		private void detach_UserProgresses(UserProgress entity)
+		{
+			this.SendPropertyChanging();
+			entity.Module = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.user_progress")]
+	public partial class UserProgress : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<int> _module_id;
+		
+		private System.Nullable<int> _resource_no;
+		
+		private System.Nullable<int> _student_id;
+		
+		private System.Nullable<bool> _isComplete;
+		
+		private EntityRef<Module> _Module;
+		
+		private EntityRef<Student> _Student;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Onmodule_idChanging(System.Nullable<int> value);
+    partial void Onmodule_idChanged();
+    partial void Onresource_noChanging(System.Nullable<int> value);
+    partial void Onresource_noChanged();
+    partial void Onstudent_idChanging(System.Nullable<int> value);
+    partial void Onstudent_idChanged();
+    partial void OnisCompleteChanging(System.Nullable<bool> value);
+    partial void OnisCompleteChanged();
+    #endregion
+		
+		public UserProgress()
+		{
+			this._Module = default(EntityRef<Module>);
+			this._Student = default(EntityRef<Student>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_module_id", DbType="Int")]
+		public System.Nullable<int> module_id
+		{
+			get
+			{
+				return this._module_id;
+			}
+			set
+			{
+				if ((this._module_id != value))
+				{
+					if (this._Module.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onmodule_idChanging(value);
+					this.SendPropertyChanging();
+					this._module_id = value;
+					this.SendPropertyChanged("module_id");
+					this.Onmodule_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_resource_no", DbType="Int")]
+		public System.Nullable<int> resource_no
+		{
+			get
+			{
+				return this._resource_no;
+			}
+			set
+			{
+				if ((this._resource_no != value))
+				{
+					this.Onresource_noChanging(value);
+					this.SendPropertyChanging();
+					this._resource_no = value;
+					this.SendPropertyChanged("resource_no");
+					this.Onresource_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_student_id", DbType="Int")]
+		public System.Nullable<int> student_id
+		{
+			get
+			{
+				return this._student_id;
+			}
+			set
+			{
+				if ((this._student_id != value))
+				{
+					if (this._Student.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onstudent_idChanging(value);
+					this.SendPropertyChanging();
+					this._student_id = value;
+					this.SendPropertyChanged("student_id");
+					this.Onstudent_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isComplete", DbType="Bit")]
+		public System.Nullable<bool> isComplete
+		{
+			get
+			{
+				return this._isComplete;
+			}
+			set
+			{
+				if ((this._isComplete != value))
+				{
+					this.OnisCompleteChanging(value);
+					this.SendPropertyChanging();
+					this._isComplete = value;
+					this.SendPropertyChanged("isComplete");
+					this.OnisCompleteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_user_progress", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true)]
+		public Module Module
+		{
+			get
+			{
+				return this._Module.Entity;
+			}
+			set
+			{
+				Module previousValue = this._Module.Entity;
+				if (((previousValue != value) 
+							|| (this._Module.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Module.Entity = null;
+						previousValue.UserProgresses.Remove(this);
+					}
+					this._Module.Entity = value;
+					if ((value != null))
+					{
+						value.UserProgresses.Add(this);
+						this._module_id = value.id;
+					}
+					else
+					{
+						this._module_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Module");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_user_progress", Storage="_Student", ThisKey="student_id", OtherKey="id", IsForeignKey=true)]
+		public Student Student
+		{
+			get
+			{
+				return this._Student.Entity;
+			}
+			set
+			{
+				Student previousValue = this._Student.Entity;
+				if (((previousValue != value) 
+							|| (this._Student.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Student.Entity = null;
+						previousValue.UserProgresses.Remove(this);
+					}
+					this._Student.Entity = value;
+					if ((value != null))
+					{
+						value.UserProgresses.Add(this);
+						this._student_id = value.id;
+					}
+					else
+					{
+						this._student_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Student");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
