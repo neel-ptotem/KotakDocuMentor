@@ -20,7 +20,7 @@
       <Column Name="case_study_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="docket_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Docket_CaseStudyDocket" Member="Docket" ThisKey="docket_id" OtherKey="id" Type="Docket" IsForeignKey="true" />
-      <Association Name="CaseStudy_CaseStudyDocket" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="case_study_CaseStudyDocket" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.case_studies_tags" Member="CaseStudyTags">
@@ -29,7 +29,7 @@
       <Column Name="case_study_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="tag_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Tag_CaseStudyTag" Member="Tag" ThisKey="tag_id" OtherKey="id" Type="Tag" IsForeignKey="true" />
-      <Association Name="CaseStudy_CaseStudyTag" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="case_study_CaseStudyTag" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.components" Member="Components">
@@ -83,6 +83,7 @@
       <Association Name="Document_DocketDocument" Member="DocketDocuments" ThisKey="id" OtherKey="document_id" Type="DocketDocument" />
       <Association Name="Document_Page" Member="Pages" ThisKey="id" OtherKey="document_id" Type="Page" />
       <Association Name="Document_Docucheck" Member="Docuchecks" ThisKey="id" OtherKey="document_id" Type="Docucheck" />
+      <Association Name="Document_case_study_document" Member="CaseStudyDocuments" ThisKey="id" OtherKey="document_id" Type="CaseStudyDocument" />
     </Type>
   </Table>
   <Table Name="dbo.filled_sections" Member="FilledSections">
@@ -232,7 +233,7 @@
       <Column Name="case_study_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="quiz_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Quiz_CaseStudyQuiz" Member="Quiz" ThisKey="quiz_id" OtherKey="id" Type="Quiz" IsForeignKey="true" DeleteRule="CASCADE" />
-      <Association Name="CaseStudy_CaseStudyQuiz" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="case_study_CaseStudyQuiz" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
   <Table Name="dbo.answer_choices" Member="AnswerChoices">
@@ -251,18 +252,7 @@
       <Column Name="question_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="assignment_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Question_Response" Member="Question" ThisKey="question_id" OtherKey="id" Type="Question" IsForeignKey="true" DeleteRule="CASCADE" />
-      <Association Name="Assignment_Response" Member="Assignment" ThisKey="assignment_id" OtherKey="id" Type="Assignment" IsForeignKey="true" DeleteRule="CASCADE" />
-    </Type>
-  </Table>
-  <Table Name="dbo.case_studies" Member="CaseStudies">
-    <Type Name="CaseStudy">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="briefing" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="CaseStudy_CaseStudyDocket" Member="CaseStudyDockets" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyDocket" />
-      <Association Name="CaseStudy_CaseStudyTag" Member="CaseStudyTags" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyTag" />
-      <Association Name="CaseStudy_CaseStudyQuiz" Member="CaseStudyQuizs" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyQuiz" />
-      <Association Name="CaseStudy_Assignment" Member="Assignments" ThisKey="id" OtherKey="case_study_id" Type="Assignment" />
+      <Association Name="assignment_Response" Member="Assignment" ThisKey="assignment_id" OtherKey="id" Type="Assignment" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
   <Table Name="dbo.students" Member="Students">
@@ -272,25 +262,9 @@
       <Column Name="first_visit" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="time_spend" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="unique_id" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
-      <Association Name="Student_Assignment" Member="Assignments" ThisKey="id" OtherKey="student_id" Type="Assignment" />
-      <Association Name="Student_user_progress" Member="UserProgresses" ThisKey="id" OtherKey="student_id" Type="UserProgress" />
-    </Type>
-  </Table>
-  <Table Name="dbo.assignments" Member="Assignments">
-    <Type Name="Assignment">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="student_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="case_study_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="level_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="istest" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ispractice" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="iscomplete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="score" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Association Name="Assignment_Response" Member="Responses" ThisKey="id" OtherKey="assignment_id" Type="Response" />
-      <Association Name="Assignment_Docucheck" Member="Docuchecks" ThisKey="id" OtherKey="document_id" Type="Docucheck" />
-      <Association Name="CaseStudy_Assignment" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Student_Assignment" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
-      <Association Name="Level_Assignment" Member="Level" ThisKey="level_id" OtherKey="id" Type="Level" IsForeignKey="true" />
+      <Association Name="Student_UserProgress" Member="UserProgresses" ThisKey="id" OtherKey="student_id" Type="UserProgress" />
+      <Association Name="Student_user_module_time_statistic" Member="UserModuleTimeStatistics" ThisKey="id" OtherKey="student_id" Type="UserModuleTimeStatistic" />
+      <Association Name="Student_assignment" Member="Assignments" ThisKey="id" OtherKey="student_id" Type="Assignment" />
     </Type>
   </Table>
   <Table Name="dbo.docuchecks" Member="Docuchecks">
@@ -303,10 +277,10 @@
       <Column Name="docket_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="document_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Docucheck_FilledSection" Member="FilledSections" ThisKey="id" OtherKey="docucheck_id" Type="FilledSection" />
-      <Association Name="Assignment_Docucheck" Member="Assignment" ThisKey="document_id" OtherKey="id" Type="Assignment" IsForeignKey="true" />
       <Association Name="Docket_Docucheck" Member="Docket" ThisKey="docket_id" OtherKey="id" Type="Docket" IsForeignKey="true" />
       <Association Name="Document_Docucheck" Member="Document" ThisKey="document_id" OtherKey="id" Type="Document" IsForeignKey="true" />
       <Association Name="ReferenceSet_Docucheck" Member="ReferenceSet" ThisKey="reference_set_id" OtherKey="id" Type="ReferenceSet" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="assignment_Docucheck" Member="Assignment" ThisKey="assignment_id" OtherKey="id" Type="Assignment" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.levels" Member="Levels">
@@ -314,17 +288,7 @@
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="difficulty" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Level_Assignment" Member="Assignments" ThisKey="id" OtherKey="level_id" Type="Assignment" />
-    </Type>
-  </Table>
-  <Table Name="dbo.modules" Member="Modules">
-    <Type Name="Module">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="body_content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="script_content" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="Module_user_progress" Member="UserProgresses" ThisKey="id" OtherKey="module_id" Type="UserProgress" />
+      <Association Name="Level_assignment" Member="Assignments" ThisKey="id" OtherKey="level_id" Type="Assignment" />
     </Type>
   </Table>
   <Table Name="dbo.user_progress" Member="UserProgresses">
@@ -334,8 +298,69 @@
       <Column Name="resource_no" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="student_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="isComplete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Module_user_progress" Member="Module" ThisKey="module_id" OtherKey="id" Type="Module" IsForeignKey="true" />
-      <Association Name="Student_user_progress" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" />
+      <Association Name="Student_UserProgress" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" />
+      <Association Name="module_UserProgress" Member="Module" ThisKey="module_id" OtherKey="id" Type="Module" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.modules" Member="Modules">
+    <Type Name="Module">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="no_of_sections" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="module_UserProgress" Member="UserProgresses" ThisKey="id" OtherKey="module_id" Type="UserProgress" />
+      <Association Name="Module_user_module_time_statistic" Member="UserModuleTimeStatistics" ThisKey="id" OtherKey="module_id" Type="UserModuleTimeStatistic" />
+    </Type>
+  </Table>
+  <Table Name="dbo.user_module_time_statistics" Member="UserModuleTimeStatistics">
+    <Type Name="UserModuleTimeStatistic">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="student_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="module_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="time_spend" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Module_user_module_time_statistic" Member="Module" ThisKey="module_id" OtherKey="id" Type="Module" IsForeignKey="true" />
+      <Association Name="Student_user_module_time_statistic" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.case_studies" Member="CaseStudies">
+    <Type Name="CaseStudy">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="briefing" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="case_study_CaseStudyDocket" Member="CaseStudyDockets" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyDocket" />
+      <Association Name="case_study_CaseStudyTag" Member="CaseStudyTags" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyTag" />
+      <Association Name="case_study_CaseStudyQuiz" Member="CaseStudyQuizs" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyQuiz" />
+      <Association Name="CaseStudy_assignment" Member="Assignments" ThisKey="id" OtherKey="case_study_id" Type="Assignment" />
+      <Association Name="CaseStudy_case_study_document" Member="CaseStudyDocuments" ThisKey="id" OtherKey="case_study_id" Type="CaseStudyDocument" />
+    </Type>
+  </Table>
+  <Table Name="dbo.assignments" Member="Assignments">
+    <Type Name="Assignment">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="student_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="case_study_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="level_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="istest" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ispractice" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="iscomplete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="score" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="isstarted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="assignment_Response" Member="Responses" ThisKey="id" OtherKey="assignment_id" Type="Response" />
+      <Association Name="assignment_Docucheck" Member="Docuchecks" ThisKey="id" OtherKey="assignment_id" Type="Docucheck" />
+      <Association Name="CaseStudy_assignment" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Level_assignment" Member="Level" ThisKey="level_id" OtherKey="id" Type="Level" IsForeignKey="true" />
+      <Association Name="Student_assignment" Member="Student" ThisKey="student_id" OtherKey="id" Type="Student" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.case_study_documents" Member="CaseStudyDocuments">
+    <Type Name="CaseStudyDocument">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="case_study_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="document_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="is_reference_document" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="CaseStudy_case_study_document" Member="CaseStudy" ThisKey="case_study_id" OtherKey="id" Type="CaseStudy" IsForeignKey="true" />
+      <Association Name="Document_case_study_document" Member="Document" ThisKey="document_id" OtherKey="id" Type="Document" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

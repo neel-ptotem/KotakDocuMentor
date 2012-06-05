@@ -79,19 +79,19 @@ namespace KotakDocuMentor.Controllers
 
         public struct QuestionAnswers
         {
-           // private DocumentorDBDataContext db = new DocumentorDBDataContext();
+            // private DocumentorDBDataContext db = new DocumentorDBDataContext();
             public int question_id;
             public string question_content;
             public bool has_options;
             public List<AnswerChoice> options;
 
-            public QuestionAnswers(int id,string content,bool option,List<AnswerChoice> options)
+            public QuestionAnswers(int id, string content, bool option, List<AnswerChoice> options)
             {
                 //Question q=db.Questions.Where(a=>a.id==id_v).First();
                 this.question_id = id;
                 this.question_content = content;
                 this.has_options = option;
-                this.options = options;                
+                this.options = options;
             }
         }
 
@@ -100,12 +100,12 @@ namespace KotakDocuMentor.Controllers
         public ActionResult PlayQuiz()
         {
             Assignment assignment = DocumentorDB.Assignments.Where(a => a.id == Int32.Parse(Request.Params["assignment_id"])).First();
-            Quiz quiz = DocumentorDB.Quizs.Where(a => a.id==assignment.CaseStudy.CaseStudyQuizs.First().quiz_id).First();
+            Quiz quiz = DocumentorDB.Quizs.Where(a => a.id == assignment.CaseStudy.CaseStudyQuizs.First().quiz_id).First();
             var quiz_questions = new Dictionary<int, QuestionAnswers>();
-            List<Response> responses=new List<Response>();
+            List<Response> responses = new List<Response>();
             foreach (Question q in quiz.QuizQuestions.Select(a => a.Question).ToList())
             {
-                quiz_questions.Add(q.id,new QuestionAnswers(q.id,q.question_content,q.question_type_id==1 || q.question_type_id==2?true:false,q.AnswerChoices.ToList()));
+                quiz_questions.Add(q.id, new QuestionAnswers(q.id, q.question_content, q.question_type_id == 1 || q.question_type_id == 2 ? true : false, q.AnswerChoices.ToList()));
                 Response r = new Response();
                 r.assignment_id = assignment.id;
                 r.question_id = q.id;
@@ -143,8 +143,8 @@ namespace KotakDocuMentor.Controllers
             //DocumentorDB.SubmitChanges();
             Random r = new Random();
             List<Docket> dockets = DocumentorDB.Dockets.ToList();
-            int docket_index=r.Next(dockets.Count);
-            return RedirectToAction("DocketDocumentsQuiz", new { assignment_id = assignment.id,docket_id=dockets[docket_index].id });
+            int docket_index = r.Next(dockets.Count);
+            return RedirectToAction("DocketDocumentsQuiz", new { assignment_id = assignment.id, docket_id = dockets[docket_index].id });
             //return View();
         }
 
@@ -293,9 +293,9 @@ namespace KotakDocuMentor.Controllers
         public ActionResult ShowReferenceDocument()
         {
 
-            Docucheck docucheck = DocumentorDB.Docuchecks.Where(a => a.docket_id == Int32.Parse(Request.Params["docket_id"]) && a.document_id == Int32.Parse(Request.Params["document_id"]) && (a.ReferenceSet.correct??false)).First();
+            Docucheck docucheck = DocumentorDB.Docuchecks.Where(a => a.docket_id == Int32.Parse(Request.Params["docket_id"]) && a.document_id == Int32.Parse(Request.Params["document_id"]) && (a.ReferenceSet.correct ?? false)).First();
             Document document = docucheck.Document;
-            Page page = document.Pages.Where(a=>a.sequence_number==int.Parse(Request.Params["seq_no"])).First();
+            Page page = document.Pages.Where(a => a.sequence_number == int.Parse(Request.Params["seq_no"])).First();
             List<FilledSection> filled_sections = docucheck.FilledSections.ToList();
             ViewData["docket_id"] = Int32.Parse(Request.Params["docket_id"]);
             ViewData["document_id"] = Int32.Parse(Request.Params["document_id"]);
@@ -324,7 +324,7 @@ namespace KotakDocuMentor.Controllers
             public double score;
             public int attempts;
 
-            public ResultInfo(string name_v, double score_v,int att)
+            public ResultInfo(string name_v, double score_v, int att)
             {
                 this.name = name_v;
                 this.score = score_v;

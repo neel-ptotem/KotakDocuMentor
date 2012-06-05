@@ -48,6 +48,7 @@ color:black;
 <form id="form-module-2" method="get" action="UserProgress">
     <input class="module-2" type="hidden" name="module_id" value="<%:ViewData["module_id"]%>" />
     <input class="module-2" type="hidden" name="student_id" value="<%:ViewData["student_id"]%>" />
+    <input id="module-2-time-spend" class="module-2" type="hidden" name="time_spend" value="" />
     <div id='radial_container'>
 
     <ul class='list'>
@@ -120,7 +121,7 @@ color:black;
 
     </ul>
     </div>
-    <input type="submit" class="btn-success" value="Save Progress" />
+    <%--<input type="submit" class="btn-success" value="Save Progress" />--%>
     </form>
 </div>
 

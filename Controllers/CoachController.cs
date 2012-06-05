@@ -20,7 +20,7 @@ namespace KotakDocuMentor.Controllers
             ViewData["module_id"] = module.id;
             ViewData["student_id"] = student.id;
             ViewData["progress_tracker"] = CoachDB.UserProgresses.Where(a => a.student_id == student.id && a.module_id == module.id).ToList();
-            if(Request.Params["student_id"]=="3")
+            if(CoachDB.UserProgresses.Where(a=>a.student_id.Equals(student.id) && a.module_id.Equals(module.id-1) && (a.isComplete==false||a.isComplete==null)).Count()==0)
                 return View("module_"+Request.Params["module_id"]);
             else
                 return View("module_content");
@@ -44,9 +44,15 @@ namespace KotakDocuMentor.Controllers
             foreach (UserProgress user_progress in user_progress_list)
             {
                 //user_progress.isComplete = true;
-                if (Request.Params[user_progress.resource_no.ToString()].Contains("1") && user_progress.isComplete != true)
-                    user_progress.isComplete = true;                
+                if (Request.Params[user_progress.resource_no.ToString()] != null)
+                {
+                    bool resource_progress = Request.Params[user_progress.resource_no.ToString()].Equals("1") || Request.Params[user_progress.resource_no.ToString()].Equals("on");
+                    if (resource_progress && user_progress.isComplete != true)
+                        user_progress.isComplete = true;
+                }
             }
+            UserModuleTimeStatistic time_stat = CoachDB.UserModuleTimeStatistics.Where(a => a.student_id == student.id && a.module_id == module.id).First();
+            time_stat.time_spend = int.Parse(Request.Params["time_spend"])+ (time_stat.time_spend ?? 0);///60 + time_stat.time_spend ?? 0;
             CoachDB.SubmitChanges();
             
         }
