@@ -3,6 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 namespace KotakDocuMentor.Models
 {
+    partial class CaseStudy
+    {
+    }
+
+    partial class Student
+    {
+        private DocumentorDBDataContext DocumentorDBM = new DocumentorDBDataContext();
+        public void create_progress_tracker()
+        {
+            List<Module> modules = DocumentorDBM.Modules.ToList();
+            int total_sections=modules.Sum(x=>x.no_of_sections??0);
+            List<UserProgress> modules_progress=new List<UserProgress>();
+            List<UserModuleTimeStatistic> times_progress = new List<UserModuleTimeStatistic>();
+            foreach (Module module in modules)
+            {
+                if(module.no_of_sections>0)
+                for (int resource_no = 1; resource_no <= module.no_of_sections; resource_no++)
+                {
+                    UserProgress module_progress = new UserProgress();
+                    module_progress.student_id = this.id;
+                    module_progress.module_id = module.id;
+                    module_progress.resource_no = resource_no;
+                    modules_progress.Add(module_progress);
+                }
+
+                UserModuleTimeStatistic module_time_stat = new UserModuleTimeStatistic();
+                module_time_stat.student_id = this.id;
+                module_time_stat.module_id = module.id;
+                module_time_stat.time_spend = 0;
+                times_progress.Add(module_time_stat);
+
+            }
+            DocumentorDBM.UserProgresses.InsertAllOnSubmit(modules_progress);
+            DocumentorDBM.UserModuleTimeStatistics.InsertAllOnSubmit(times_progress);
+            DocumentorDBM.SubmitChanges();
+        }
+    }
 
     partial class Docucheck
     {
@@ -194,7 +231,7 @@ namespace KotakDocuMentor.Models
                     dchk.assignment_id = this.id;
                     dchk.document_id = dd.document_id;
                     dchk.docket_id = dd.docket_id;
-                    List<ReferenceSet> reference_sets = d.SuperSet.ReferenceSets.ToList();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                    List<ReferenceSet> reference_sets = d.SuperSet.ReferenceSets.ToList();
                     if (reference_sets.Count(a => a.correct == true) != 0)
                     {
                         Random r_id = new Random();
@@ -207,8 +244,8 @@ namespace KotakDocuMentor.Models
                     DocumentorDBM.Docuchecks.InsertOnSubmit(dchk);
                     DocumentorDBM.SubmitChanges();
                     dchk.create_filled_section();
-                    
-                }                
+
+                }
             }
         }
     }

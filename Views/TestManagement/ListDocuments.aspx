@@ -6,33 +6,45 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>ListDocuments</h2>
+    <div class="hero-unit blocky">
+        <h1 style="color:white">DocuCheck</h1>
+        <p style="color:white">Now for some practical practice. Can you catch all the errors in these documents?</p>
+    </div>
     
-    <table>
+    <table width=100% border=3px>
         <tr>
-            <th>
+             <th class="blocky" style="color:White; height:30px;">
+                Type
+            </th>
+            <th class="blocky" style="color:White; height:30px;">
                 name
             </th>
-            <th>
+            <th class="blocky" style="color:White; height:30px;">
                 score
             </th>
-            <th></th>            
+            <th class="blocky" style="color:White; height:30px;">Test</th>            
         </tr>        
     <% foreach (KeyValuePair<int, KotakDocuMentor.Controllers.TestManagementController.DocInfo> docucheck in ((Dictionary<int, KotakDocuMentor.Controllers.TestManagementController.DocInfo>)ViewData["DocumentList"]))
        { %>
     
         <tr>
-            <td>
-                <%: docucheck.Value.name%>
+             <td>
+               
             </td>
             <td>
-                <%: docucheck.Value.score %>
+               <center><%: docucheck.Value.name%></center> 
             </td>
             <td>
-            <% if (!docucheck.Value.played)
+               <center> <%: docucheck.Value.score %></center>
+            </td>
+            <td>
+            <center>
+             <% if (!docucheck.Value.played)
                { %>
                 <%: Html.ActionLink("Take Test", "PlayDocumentTest", new { docucheck_id = docucheck.Value.id,sequence_number=1,assignment_id=ViewData["assignment_id"] })%>
                 <% } %>
+            </center>
+           
             </td>            
         </tr>
     

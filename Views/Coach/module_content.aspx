@@ -7,10 +7,6 @@
     <title>module_content</title>
     </head>
 <body>
-<div style="border-radius:20px;background-color:Silver;margin:10%;">
-<h1 style="padding:25% 25% 25% 25%;text-align:center; ">Please complete previous modules</h1>    
-</div>  
-
-  
+<img style="padding:50px 50px 50px 50px; width:360px; height:480px;" src="../../Content/images/general/error.jpg" />
 </body>
 </html>

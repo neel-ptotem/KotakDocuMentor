@@ -6,10 +6,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2>PlayDocumentTest</h2>
-    
 
-<div class="page-header" style="position:fixed; color:white;font-weight: bold;margin-top: 20px">
+
+<div class="page-header blocky" style="position:fixed; color:white;font-weight: bold;">
   <form action="SaveDocumentResults">
   <% foreach(KotakDocuMentor.Models.FilledSection filled_section in ViewData["filled_sections"] as List<KotakDocuMentor.Models.FilledSection>){ %>
   <input type="hidden" name="<%:filled_section.id %>" id="<%:filled_section.id %>" value="1" />
@@ -18,25 +17,32 @@
   <input type="hidden" name="sequence_number" id="sequence_number" value="<%: ViewData["sequence_number"] %>" />
   <input type="submit" class="btn-success btn" id ="save_button"/>
   </form>
-  <br>
-  <br>
-
+  <br />
+  <br />
+  <table style="margin-left:20px;">
+   <tr>
+  <td style="border:3px solid darkred;">
+  <h2>Reference <br />Document</h2>
+  </td></tr>
   <%foreach(KotakDocuMentor.Models.Document ref_doc in ViewData["reference_documents"] as List<KotakDocuMentor.Models.Document>){%>
+ 
+  <tr><td style="border:3px solid darkred; background-color:White;">
   <%: Html.ActionLink("View "+ref_doc.name, "ShowReferenceDocument", new {docket_id=((KotakDocuMentor.Models.Docucheck)ViewData["docucheck"]).docket_id,document_id=ref_doc.id,seq_no=1},new { target="_blank" }) %>
-      <br>
-      <br>
+      <br />
+      <br />
+      </td></tr>
   <% } %>
-
+  </table>
   <br/>
 
 
   <br/>
 </div>
 
-<div class="row" style="text-align: center; background: transparent">
+<div class="row" style="text-align: center; background: grey">
   <div id="DocumentFrame" class="docuframe">
-  </div>
 
+  
   <% foreach (KotakDocuMentor.Models.FilledSection filled_section in ViewData["filled_sections"] as List<KotakDocuMentor.Models.FilledSection>)
      { %>
 <%// KotakDocuMentor.Models.DocumentorDBDataContext DocumentorDB = ViewData["DocumentorDB"] as KotakDocuMentor.Models.DocumentorDBDataContext; %>
@@ -52,6 +58,8 @@
       <% } %>     
       <img src= "/Content/images/general/cross.jpeg" style="position :absolute;z-index:6000;top:<%:blank_section.ypos+32%>px;left:<%:blank_section.xpos%>px;visibility:hidden;background:transparent" class="<%:filled_section.id%>" height="32px" width="32px" alt="close"/>
       <% } %>
+  </div>
+
 </div>
 
 </asp:Content>
@@ -90,24 +98,30 @@
 
     <style type="text/css">
         .content {
-            background: transparent;
+            background: gray;
         }
 
-        .page-header {
-            background: transparent;
-            position: fixed;
-            left: 25px;
-            border: none;
-            height: 600px;
-            width: 220px;
-            overflow: auto;
-        }
+       .page-header 
+       {
+         position: fixed;
+         height: 600px;
+         width: 180px;
+         overflow: auto;
+         margin:0;
+         padding:20px;
+         margin-left: -20px;
+         text-align: center;
+         font-weight: bold;
+}
 
-        .docuframe {
+        .docuframe 
+        {
+            background-color:ThreeDShadow;
+            border-radius:20px;
             width: 900px;
             height: 1080px;
             margin: 0px auto;
-            padding: 0px;
+            margin-top: 20px;
             background-image: url("/Content/images/blank_forms/<%:((KotakDocuMentor.Models.Page)ViewData["page"]).id %>/medium/<%:((KotakDocuMentor.Models.Page)ViewData["page"]).blank_form_file_name %>");
             background-repeat: no-repeat;
         }

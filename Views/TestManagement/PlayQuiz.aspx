@@ -13,16 +13,16 @@
 
 <input id="assignment_id" type="hidden" name="assignment_id" value="<%: ((KotakDocuMentor.Models.Assignment)ViewData["assignment"]).id %>" />
 <table class="table table-bordered">
-  <tr>
-    <th>Question</th>   
-
-  </tr>
+  <%int i = 1; %>
    <% foreach (KeyValuePair<int, KotakDocuMentor.Controllers.TestManagementController.QuestionAnswers> question in (Dictionary<int, KotakDocuMentor.Controllers.TestManagementController.QuestionAnswers>)ViewData["quiz_questions"])
        { %>  
+       <tr>
+       <td class="blocky"  style="border:solid; border-radius:8px;" ><h4 style="color:white;">Question <%= i %>:</h4></td>
+       </tr>
       <tr>
-        <td style="font-size: 14px">
+        <td style="font-size: 14px; border:solid; border-radius:8px;">
 
-          <b><%= question.Value.question_content %></b><br/>
+          <b><%= question.Value.question_content %></b><br/><br />
           <% if (question.Value.has_options)
              { %>
           <% foreach (KotakDocuMentor.Models.AnswerChoice option in question.Value.options as List<KotakDocuMentor.Models.AnswerChoice>)
@@ -37,8 +37,9 @@
              <%} %>
         </td>        
       </tr>
+      <%i = i + 1; %>
   <% } %>
-</table>
+</table><br />
 <input type="submit" value="Confirm Answers" class="btn-primary"/>
 </form>
 </asp:Content>

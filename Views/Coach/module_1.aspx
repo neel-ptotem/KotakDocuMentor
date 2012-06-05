@@ -77,11 +77,11 @@ The Coach, through various sections, covers the following:-
         </div>
         <div class="span4" style="margin-left:-20px">
         <div class="progress progress-striped progress-warning span4">
-            <div class="bar" style="width: 60%;"></div>
+            <div id="user_progress_bar" class="bar" style="width: 0%;"></div>
         </div>
         </div>
-        <div class="span4 bbtxt" style="margin-left:-20px">
-        Progress(60%)
+        <div id="user_progress_text" class="span4 bbtxt" style="margin-left:-20px">
+        Progress(0%)
         </div>
     </div>
     <div class="row-fluid">

@@ -10,6 +10,7 @@ using KotakDocuMentor.Models;
 
 namespace KotakDocuMentor.Controllers
 {
+    [Authorize(Users="IPC\\ImNeel")]
     public class AdminController : Controller
     {
         //
@@ -20,6 +21,15 @@ namespace KotakDocuMentor.Controllers
 
         public ActionResult Index()
         {
+            List<Student> students = DocumentorDB.Students.ToList();
+            List<Employee> employees = new List<Employee>();
+            foreach (Student student in students)
+                employees.Add(KotakEmployeeDB.Employees.Where(e => e.UserLoginName.Equals(student.username)).First());
+            List<string> divisions = employees.Select(e => e.Division).Distinct().ToList();
+            List<CaseStudy> quizzes = DocumentorDB.CaseStudies.ToList();
+            ViewData["divisions"] = divisions;
+            ViewData["employees"] = employees;
+            ViewData["quizzes"] = quizzes;
             return View();
         }
 

@@ -18,12 +18,11 @@ namespace KotakDocuMentor.Controllers
         {
             if (Request.Params["student_id"] != null)
             {
-                int student_id;
-
                 string student_username=Request.Params["student_id"];
+                Student student;
                 if (DocumentorDB.Students.Where(a => a.username.Equals(student_username)).Count() > 0)
                 {
-                    student_id = DocumentorDB.Students.Where(a => a.username.Equals(student_username)).First().id;
+                    student= DocumentorDB.Students.Where(a => a.username.Equals(student_username)).First();
                 }
                 else
                 {
@@ -35,9 +34,13 @@ namespace KotakDocuMentor.Controllers
                     new_student.first_visit = DateTime.Now;
                     DocumentorDB.Students.InsertOnSubmit(new_student);
                     DocumentorDB.SubmitChanges();
-                    student_id = DocumentorDB.Students.Where(a => a.username.Equals(student_username)).First().id;
-                }                
-                ViewData["student_id"] = student_id;
+                    student = DocumentorDB.Students.Where(a => a.username.Equals(student_username)).First();
+                    student.create_progress_tracker();
+                }
+                Session["student_id"] = "Indraneel More";
+                ViewData["modules"] = DocumentorDB.Modules.ToList();
+                ViewData["student_id"] = student.id;
+                ViewData["student_username"] = student_username;
                 return View();
             }
             else
