@@ -78,18 +78,12 @@ namespace KotakDocuMentor.Models
     partial void InsertReferenceSet(ReferenceSet instance);
     partial void UpdateReferenceSet(ReferenceSet instance);
     partial void DeleteReferenceSet(ReferenceSet instance);
-    partial void InsertDocketDocument(DocketDocument instance);
-    partial void UpdateDocketDocument(DocketDocument instance);
-    partial void DeleteDocketDocument(DocketDocument instance);
     partial void InsertPage(Page instance);
     partial void UpdatePage(Page instance);
     partial void DeletePage(Page instance);
     partial void InsertExample(Example instance);
     partial void UpdateExample(Example instance);
     partial void DeleteExample(Example instance);
-    partial void InsertQuiz(Quiz instance);
-    partial void UpdateQuiz(Quiz instance);
-    partial void DeleteQuiz(Quiz instance);
     partial void InsertQuestion(Question instance);
     partial void UpdateQuestion(Question instance);
     partial void DeleteQuestion(Question instance);
@@ -135,6 +129,12 @@ namespace KotakDocuMentor.Models
     partial void InsertCaseStudyDocument(CaseStudyDocument instance);
     partial void UpdateCaseStudyDocument(CaseStudyDocument instance);
     partial void DeleteCaseStudyDocument(CaseStudyDocument instance);
+    partial void InsertQuiz(Quiz instance);
+    partial void UpdateQuiz(Quiz instance);
+    partial void DeleteQuiz(Quiz instance);
+    partial void InsertDocketDocument(DocketDocument instance);
+    partial void UpdateDocketDocument(DocketDocument instance);
+    partial void DeleteDocketDocument(DocketDocument instance);
     #endregion
 		
 		public DocumentorDBDataContext() : 
@@ -295,14 +295,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<DocketDocument> DocketDocuments
-		{
-			get
-			{
-				return this.GetTable<DocketDocument>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Page> Pages
 		{
 			get
@@ -316,14 +308,6 @@ namespace KotakDocuMentor.Models
 			get
 			{
 				return this.GetTable<Example>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Quiz> Quizs
-		{
-			get
-			{
-				return this.GetTable<Quiz>();
 			}
 		}
 		
@@ -444,6 +428,22 @@ namespace KotakDocuMentor.Models
 			get
 			{
 				return this.GetTable<CaseStudyDocument>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Quiz> Quizs
+		{
+			get
+			{
+				return this.GetTable<Quiz>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DocketDocument> DocketDocuments
+		{
+			get
+			{
+				return this.GetTable<DocketDocument>();
 			}
 		}
 	}
@@ -901,7 +901,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="case_study_CaseStudyDocket", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyDocket", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public CaseStudy CaseStudy
 		{
 			get
@@ -1093,7 +1093,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="case_study_CaseStudyTag", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyTag", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public CaseStudy CaseStudy
 		{
 			get
@@ -2042,13 +2042,13 @@ namespace KotakDocuMentor.Models
 		
 		private string _name;
 		
-		private EntitySet<DocketDocument> _DocketDocuments;
-		
 		private EntitySet<Page> _Pages;
 		
 		private EntitySet<Docucheck> _Docuchecks;
 		
 		private EntitySet<CaseStudyDocument> _CaseStudyDocuments;
+		
+		private EntitySet<DocketDocument> _DocketDocuments;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2062,10 +2062,10 @@ namespace KotakDocuMentor.Models
 		
 		public Document()
 		{
-			this._DocketDocuments = new EntitySet<DocketDocument>(new Action<DocketDocument>(this.attach_DocketDocuments), new Action<DocketDocument>(this.detach_DocketDocuments));
 			this._Pages = new EntitySet<Page>(new Action<Page>(this.attach_Pages), new Action<Page>(this.detach_Pages));
 			this._Docuchecks = new EntitySet<Docucheck>(new Action<Docucheck>(this.attach_Docuchecks), new Action<Docucheck>(this.detach_Docuchecks));
 			this._CaseStudyDocuments = new EntitySet<CaseStudyDocument>(new Action<CaseStudyDocument>(this.attach_CaseStudyDocuments), new Action<CaseStudyDocument>(this.detach_CaseStudyDocuments));
+			this._DocketDocuments = new EntitySet<DocketDocument>(new Action<DocketDocument>(this.attach_DocketDocuments), new Action<DocketDocument>(this.detach_DocketDocuments));
 			OnCreated();
 		}
 		
@@ -2109,19 +2109,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_DocketDocument", Storage="_DocketDocuments", ThisKey="id", OtherKey="document_id")]
-		public EntitySet<DocketDocument> DocketDocuments
-		{
-			get
-			{
-				return this._DocketDocuments;
-			}
-			set
-			{
-				this._DocketDocuments.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_Page", Storage="_Pages", ThisKey="id", OtherKey="document_id")]
 		public EntitySet<Page> Pages
 		{
@@ -2148,7 +2135,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_case_study_document", Storage="_CaseStudyDocuments", ThisKey="id", OtherKey="document_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_CaseStudyDocument", Storage="_CaseStudyDocuments", ThisKey="id", OtherKey="document_id")]
 		public EntitySet<CaseStudyDocument> CaseStudyDocuments
 		{
 			get
@@ -2158,6 +2145,19 @@ namespace KotakDocuMentor.Models
 			set
 			{
 				this._CaseStudyDocuments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_dockets_document", Storage="_DocketDocuments", ThisKey="id", OtherKey="document_id")]
+		public EntitySet<DocketDocument> DocketDocuments
+		{
+			get
+			{
+				return this._DocketDocuments;
+			}
+			set
+			{
+				this._DocketDocuments.Assign(value);
 			}
 		}
 		
@@ -2179,18 +2179,6 @@ namespace KotakDocuMentor.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_DocketDocuments(DocketDocument entity)
-		{
-			this.SendPropertyChanging();
-			entity.Document = this;
-		}
-		
-		private void detach_DocketDocuments(DocketDocument entity)
-		{
-			this.SendPropertyChanging();
-			entity.Document = null;
 		}
 		
 		private void attach_Pages(Page entity)
@@ -2224,6 +2212,18 @@ namespace KotakDocuMentor.Models
 		}
 		
 		private void detach_CaseStudyDocuments(CaseStudyDocument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Document = null;
+		}
+		
+		private void attach_DocketDocuments(DocketDocument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Document = this;
+		}
+		
+		private void detach_DocketDocuments(DocketDocument entity)
 		{
 			this.SendPropertyChanging();
 			entity.Document = null;
@@ -3102,9 +3102,9 @@ namespace KotakDocuMentor.Models
 		
 		private EntitySet<DocketReferenceSet> _DocketReferenceSets;
 		
-		private EntitySet<DocketDocument> _DocketDocuments;
-		
 		private EntitySet<Docucheck> _Docuchecks;
+		
+		private EntitySet<DocketDocument> _DocketDocuments;
 		
 		private EntityRef<SuperSet> _SuperSet;
 		
@@ -3125,8 +3125,8 @@ namespace KotakDocuMentor.Models
 			this._CaseStudyDockets = new EntitySet<CaseStudyDocket>(new Action<CaseStudyDocket>(this.attach_CaseStudyDockets), new Action<CaseStudyDocket>(this.detach_CaseStudyDockets));
 			this._DocketProducts = new EntitySet<DocketProduct>(new Action<DocketProduct>(this.attach_DocketProducts), new Action<DocketProduct>(this.detach_DocketProducts));
 			this._DocketReferenceSets = new EntitySet<DocketReferenceSet>(new Action<DocketReferenceSet>(this.attach_DocketReferenceSets), new Action<DocketReferenceSet>(this.detach_DocketReferenceSets));
-			this._DocketDocuments = new EntitySet<DocketDocument>(new Action<DocketDocument>(this.attach_DocketDocuments), new Action<DocketDocument>(this.detach_DocketDocuments));
 			this._Docuchecks = new EntitySet<Docucheck>(new Action<Docucheck>(this.attach_Docuchecks), new Action<Docucheck>(this.detach_Docuchecks));
+			this._DocketDocuments = new EntitySet<DocketDocument>(new Action<DocketDocument>(this.attach_DocketDocuments), new Action<DocketDocument>(this.detach_DocketDocuments));
 			this._SuperSet = default(EntityRef<SuperSet>);
 			OnCreated();
 		}
@@ -3234,19 +3234,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Docket_DocketDocument", Storage="_DocketDocuments", ThisKey="id", OtherKey="docket_id")]
-		public EntitySet<DocketDocument> DocketDocuments
-		{
-			get
-			{
-				return this._DocketDocuments;
-			}
-			set
-			{
-				this._DocketDocuments.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Docket_Docucheck", Storage="_Docuchecks", ThisKey="id", OtherKey="docket_id")]
 		public EntitySet<Docucheck> Docuchecks
 		{
@@ -3257,6 +3244,19 @@ namespace KotakDocuMentor.Models
 			set
 			{
 				this._Docuchecks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Docket_dockets_document", Storage="_DocketDocuments", ThisKey="id", OtherKey="docket_id")]
+		public EntitySet<DocketDocument> DocketDocuments
+		{
+			get
+			{
+				return this._DocketDocuments;
+			}
+			set
+			{
+				this._DocketDocuments.Assign(value);
 			}
 		}
 		
@@ -3350,18 +3350,6 @@ namespace KotakDocuMentor.Models
 			entity.Docket = null;
 		}
 		
-		private void attach_DocketDocuments(DocketDocument entity)
-		{
-			this.SendPropertyChanging();
-			entity.Docket = this;
-		}
-		
-		private void detach_DocketDocuments(DocketDocument entity)
-		{
-			this.SendPropertyChanging();
-			entity.Docket = null;
-		}
-		
 		private void attach_Docuchecks(Docucheck entity)
 		{
 			this.SendPropertyChanging();
@@ -3369,6 +3357,18 @@ namespace KotakDocuMentor.Models
 		}
 		
 		private void detach_Docuchecks(Docucheck entity)
+		{
+			this.SendPropertyChanging();
+			entity.Docket = null;
+		}
+		
+		private void attach_DocketDocuments(DocketDocument entity)
+		{
+			this.SendPropertyChanging();
+			entity.Docket = this;
+		}
+		
+		private void detach_DocketDocuments(DocketDocument entity)
 		{
 			this.SendPropertyChanging();
 			entity.Docket = null;
@@ -3631,222 +3631,6 @@ namespace KotakDocuMentor.Models
 		{
 			this.SendPropertyChanging();
 			entity.ReferenceSet = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.dockets_documents")]
-	public partial class DocketDocument : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _docket_id;
-		
-		private int _document_id;
-		
-		private System.Nullable<bool> _reference_document;
-		
-		private EntityRef<Docket> _Docket;
-		
-		private EntityRef<Document> _Document;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Ondocket_idChanging(int value);
-    partial void Ondocket_idChanged();
-    partial void Ondocument_idChanging(int value);
-    partial void Ondocument_idChanged();
-    partial void Onreference_documentChanging(System.Nullable<bool> value);
-    partial void Onreference_documentChanged();
-    #endregion
-		
-		public DocketDocument()
-		{
-			this._Docket = default(EntityRef<Docket>);
-			this._Document = default(EntityRef<Document>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_docket_id", DbType="Int NOT NULL")]
-		public int docket_id
-		{
-			get
-			{
-				return this._docket_id;
-			}
-			set
-			{
-				if ((this._docket_id != value))
-				{
-					if (this._Docket.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Ondocket_idChanging(value);
-					this.SendPropertyChanging();
-					this._docket_id = value;
-					this.SendPropertyChanged("docket_id");
-					this.Ondocket_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_document_id", DbType="Int NOT NULL")]
-		public int document_id
-		{
-			get
-			{
-				return this._document_id;
-			}
-			set
-			{
-				if ((this._document_id != value))
-				{
-					if (this._Document.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Ondocument_idChanging(value);
-					this.SendPropertyChanging();
-					this._document_id = value;
-					this.SendPropertyChanged("document_id");
-					this.Ondocument_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_document", DbType="Bit")]
-		public System.Nullable<bool> reference_document
-		{
-			get
-			{
-				return this._reference_document;
-			}
-			set
-			{
-				if ((this._reference_document != value))
-				{
-					this.Onreference_documentChanging(value);
-					this.SendPropertyChanging();
-					this._reference_document = value;
-					this.SendPropertyChanged("reference_document");
-					this.Onreference_documentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Docket_DocketDocument", Storage="_Docket", ThisKey="docket_id", OtherKey="id", IsForeignKey=true)]
-		public Docket Docket
-		{
-			get
-			{
-				return this._Docket.Entity;
-			}
-			set
-			{
-				Docket previousValue = this._Docket.Entity;
-				if (((previousValue != value) 
-							|| (this._Docket.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Docket.Entity = null;
-						previousValue.DocketDocuments.Remove(this);
-					}
-					this._Docket.Entity = value;
-					if ((value != null))
-					{
-						value.DocketDocuments.Add(this);
-						this._docket_id = value.id;
-					}
-					else
-					{
-						this._docket_id = default(int);
-					}
-					this.SendPropertyChanged("Docket");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_DocketDocument", Storage="_Document", ThisKey="document_id", OtherKey="id", IsForeignKey=true)]
-		public Document Document
-		{
-			get
-			{
-				return this._Document.Entity;
-			}
-			set
-			{
-				Document previousValue = this._Document.Entity;
-				if (((previousValue != value) 
-							|| (this._Document.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Document.Entity = null;
-						previousValue.DocketDocuments.Remove(this);
-					}
-					this._Document.Entity = value;
-					if ((value != null))
-					{
-						value.DocketDocuments.Add(this);
-						this._document_id = value.id;
-					}
-					else
-					{
-						this._document_id = default(int);
-					}
-					this.SendPropertyChanged("Document");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -4417,172 +4201,6 @@ namespace KotakDocuMentor.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.quizzes")]
-	public partial class Quiz : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private System.Nullable<bool> _isonline;
-		
-		private System.Nullable<int> _level_id;
-		
-		private EntitySet<QuizQuestion> _QuizQuestions;
-		
-		private EntitySet<CaseStudyQuiz> _CaseStudyQuizs;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnisonlineChanging(System.Nullable<bool> value);
-    partial void OnisonlineChanged();
-    partial void Onlevel_idChanging(System.Nullable<int> value);
-    partial void Onlevel_idChanged();
-    #endregion
-		
-		public Quiz()
-		{
-			this._QuizQuestions = new EntitySet<QuizQuestion>(new Action<QuizQuestion>(this.attach_QuizQuestions), new Action<QuizQuestion>(this.detach_QuizQuestions));
-			this._CaseStudyQuizs = new EntitySet<CaseStudyQuiz>(new Action<CaseStudyQuiz>(this.attach_CaseStudyQuizs), new Action<CaseStudyQuiz>(this.detach_CaseStudyQuizs));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isonline", DbType="Bit")]
-		public System.Nullable<bool> isonline
-		{
-			get
-			{
-				return this._isonline;
-			}
-			set
-			{
-				if ((this._isonline != value))
-				{
-					this.OnisonlineChanging(value);
-					this.SendPropertyChanging();
-					this._isonline = value;
-					this.SendPropertyChanged("isonline");
-					this.OnisonlineChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_level_id", DbType="Int")]
-		public System.Nullable<int> level_id
-		{
-			get
-			{
-				return this._level_id;
-			}
-			set
-			{
-				if ((this._level_id != value))
-				{
-					this.Onlevel_idChanging(value);
-					this.SendPropertyChanging();
-					this._level_id = value;
-					this.SendPropertyChanged("level_id");
-					this.Onlevel_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Quiz_QuizQuestion", Storage="_QuizQuestions", ThisKey="id", OtherKey="quiz_id")]
-		public EntitySet<QuizQuestion> QuizQuestions
-		{
-			get
-			{
-				return this._QuizQuestions;
-			}
-			set
-			{
-				this._QuizQuestions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Quiz_CaseStudyQuiz", Storage="_CaseStudyQuizs", ThisKey="id", OtherKey="quiz_id")]
-		public EntitySet<CaseStudyQuiz> CaseStudyQuizs
-		{
-			get
-			{
-				return this._CaseStudyQuizs;
-			}
-			set
-			{
-				this._CaseStudyQuizs.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_QuizQuestions(QuizQuestion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Quiz = this;
-		}
-		
-		private void detach_QuizQuestions(QuizQuestion entity)
-		{
-			this.SendPropertyChanging();
-			entity.Quiz = null;
-		}
-		
-		private void attach_CaseStudyQuizs(CaseStudyQuiz entity)
-		{
-			this.SendPropertyChanging();
-			entity.Quiz = this;
-		}
-		
-		private void detach_CaseStudyQuizs(CaseStudyQuiz entity)
-		{
-			this.SendPropertyChanging();
-			entity.Quiz = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.questions")]
 	public partial class Question : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5136,9 +4754,9 @@ namespace KotakDocuMentor.Models
 		
 		private System.Nullable<int> _quiz_id;
 		
-		private EntityRef<Quiz> _Quiz;
-		
 		private EntityRef<CaseStudy> _CaseStudy;
+		
+		private EntityRef<Quiz> _Quiz;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -5154,8 +4772,8 @@ namespace KotakDocuMentor.Models
 		
 		public CaseStudyQuiz()
 		{
-			this._Quiz = default(EntityRef<Quiz>);
 			this._CaseStudy = default(EntityRef<CaseStudy>);
+			this._Quiz = default(EntityRef<Quiz>);
 			OnCreated();
 		}
 		
@@ -5227,6 +4845,40 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyQuiz", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public CaseStudy CaseStudy
+		{
+			get
+			{
+				return this._CaseStudy.Entity;
+			}
+			set
+			{
+				CaseStudy previousValue = this._CaseStudy.Entity;
+				if (((previousValue != value) 
+							|| (this._CaseStudy.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CaseStudy.Entity = null;
+						previousValue.CaseStudyQuizs.Remove(this);
+					}
+					this._CaseStudy.Entity = value;
+					if ((value != null))
+					{
+						value.CaseStudyQuizs.Add(this);
+						this._case_study_id = value.id;
+					}
+					else
+					{
+						this._case_study_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("CaseStudy");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Quiz_CaseStudyQuiz", Storage="_Quiz", ThisKey="quiz_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
 		public Quiz Quiz
 		{
@@ -5257,40 +4909,6 @@ namespace KotakDocuMentor.Models
 						this._quiz_id = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Quiz");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="case_study_CaseStudyQuiz", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
-		public CaseStudy CaseStudy
-		{
-			get
-			{
-				return this._CaseStudy.Entity;
-			}
-			set
-			{
-				CaseStudy previousValue = this._CaseStudy.Entity;
-				if (((previousValue != value) 
-							|| (this._CaseStudy.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._CaseStudy.Entity = null;
-						previousValue.CaseStudyQuizs.Remove(this);
-					}
-					this._CaseStudy.Entity = value;
-					if ((value != null))
-					{
-						value.CaseStudyQuizs.Add(this);
-						this._case_study_id = value.id;
-					}
-					else
-					{
-						this._case_study_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("CaseStudy");
 				}
 			}
 		}
@@ -5652,7 +5270,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="assignment_Response", Storage="_Assignment", ThisKey="assignment_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assignment_Response", Storage="_Assignment", ThisKey="assignment_id", OtherKey="id", IsForeignKey=true, DeleteRule="CASCADE")]
 		public Assignment Assignment
 		{
 			get
@@ -5866,7 +5484,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_user_module_time_statistic", Storage="_UserModuleTimeStatistics", ThisKey="id", OtherKey="student_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_UserModuleTimeStatistic", Storage="_UserModuleTimeStatistics", ThisKey="id", OtherKey="student_id")]
 		public EntitySet<UserModuleTimeStatistic> UserModuleTimeStatistics
 		{
 			get
@@ -5879,7 +5497,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_assignment", Storage="_Assignments", ThisKey="id", OtherKey="student_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_Assignment", Storage="_Assignments", ThisKey="id", OtherKey="student_id")]
 		public EntitySet<Assignment> Assignments
 		{
 			get
@@ -6280,7 +5898,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="assignment_Docucheck", Storage="_Assignment", ThisKey="assignment_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assignment_Docucheck", Storage="_Assignment", ThisKey="assignment_id", OtherKey="id", IsForeignKey=true)]
 		public Assignment Assignment
 		{
 			get
@@ -6439,7 +6057,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Level_assignment", Storage="_Assignments", ThisKey="id", OtherKey="level_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Level_Assignment", Storage="_Assignments", ThisKey="id", OtherKey="level_id")]
 		public EntitySet<Assignment> Assignments
 		{
 			get
@@ -6670,7 +6288,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="module_UserProgress", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_UserProgress", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true)]
 		public Module Module
 		{
 			get
@@ -6844,7 +6462,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="module_UserProgress", Storage="_UserProgresses", ThisKey="id", OtherKey="module_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_UserProgress", Storage="_UserProgresses", ThisKey="id", OtherKey="module_id")]
 		public EntitySet<UserProgress> UserProgresses
 		{
 			get
@@ -6857,7 +6475,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_user_module_time_statistic", Storage="_UserModuleTimeStatistics", ThisKey="id", OtherKey="module_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_UserModuleTimeStatistic", Storage="_UserModuleTimeStatistics", ThisKey="id", OtherKey="module_id")]
 		public EntitySet<UserModuleTimeStatistic> UserModuleTimeStatistics
 		{
 			get
@@ -7042,7 +6660,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_user_module_time_statistic", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_UserModuleTimeStatistic", Storage="_Module", ThisKey="module_id", OtherKey="id", IsForeignKey=true)]
 		public Module Module
 		{
 			get
@@ -7076,7 +6694,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_user_module_time_statistic", Storage="_Student", ThisKey="student_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_UserModuleTimeStatistic", Storage="_Student", ThisKey="student_id", OtherKey="id", IsForeignKey=true)]
 		public Student Student
 		{
 			get
@@ -7259,7 +6877,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="case_study_CaseStudyDocket", Storage="_CaseStudyDockets", ThisKey="id", OtherKey="case_study_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyDocket", Storage="_CaseStudyDockets", ThisKey="id", OtherKey="case_study_id")]
 		public EntitySet<CaseStudyDocket> CaseStudyDockets
 		{
 			get
@@ -7272,7 +6890,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="case_study_CaseStudyTag", Storage="_CaseStudyTags", ThisKey="id", OtherKey="case_study_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyTag", Storage="_CaseStudyTags", ThisKey="id", OtherKey="case_study_id")]
 		public EntitySet<CaseStudyTag> CaseStudyTags
 		{
 			get
@@ -7285,7 +6903,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="case_study_CaseStudyQuiz", Storage="_CaseStudyQuizs", ThisKey="id", OtherKey="case_study_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyQuiz", Storage="_CaseStudyQuizs", ThisKey="id", OtherKey="case_study_id")]
 		public EntitySet<CaseStudyQuiz> CaseStudyQuizs
 		{
 			get
@@ -7298,7 +6916,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_assignment", Storage="_Assignments", ThisKey="id", OtherKey="case_study_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_Assignment", Storage="_Assignments", ThisKey="id", OtherKey="case_study_id")]
 		public EntitySet<Assignment> Assignments
 		{
 			get
@@ -7311,7 +6929,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_case_study_document", Storage="_CaseStudyDocuments", ThisKey="id", OtherKey="case_study_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyDocument", Storage="_CaseStudyDocuments", ThisKey="id", OtherKey="case_study_id")]
 		public EntitySet<CaseStudyDocument> CaseStudyDocuments
 		{
 			get
@@ -7665,7 +7283,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="assignment_Response", Storage="_Responses", ThisKey="id", OtherKey="assignment_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assignment_Response", Storage="_Responses", ThisKey="id", OtherKey="assignment_id")]
 		public EntitySet<Response> Responses
 		{
 			get
@@ -7678,7 +7296,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="assignment_Docucheck", Storage="_Docuchecks", ThisKey="id", OtherKey="assignment_id")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Assignment_Docucheck", Storage="_Docuchecks", ThisKey="id", OtherKey="assignment_id")]
 		public EntitySet<Docucheck> Docuchecks
 		{
 			get
@@ -7691,7 +7309,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_assignment", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_Assignment", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public CaseStudy CaseStudy
 		{
 			get
@@ -7725,7 +7343,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Level_assignment", Storage="_Level", ThisKey="level_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Level_Assignment", Storage="_Level", ThisKey="level_id", OtherKey="id", IsForeignKey=true)]
 		public Level Level
 		{
 			get
@@ -7759,7 +7377,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_assignment", Storage="_Student", ThisKey="student_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Student_Assignment", Storage="_Student", ThisKey="student_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Student Student
 		{
 			get
@@ -7965,7 +7583,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_case_study_document", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CaseStudy_CaseStudyDocument", Storage="_CaseStudy", ThisKey="case_study_id", OtherKey="id", IsForeignKey=true)]
 		public CaseStudy CaseStudy
 		{
 			get
@@ -7999,7 +7617,7 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_case_study_document", Storage="_Document", ThisKey="document_id", OtherKey="id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_CaseStudyDocument", Storage="_Document", ThisKey="document_id", OtherKey="id", IsForeignKey=true)]
 		public Document Document
 		{
 			get
@@ -8027,6 +7645,436 @@ namespace KotakDocuMentor.Models
 					else
 					{
 						this._document_id = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Document");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.quizzes")]
+	public partial class Quiz : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<bool> _isonline;
+		
+		private System.Nullable<int> _level_id;
+		
+		private string _name;
+		
+		private EntitySet<QuizQuestion> _QuizQuestions;
+		
+		private EntitySet<CaseStudyQuiz> _CaseStudyQuizs;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnisonlineChanging(System.Nullable<bool> value);
+    partial void OnisonlineChanged();
+    partial void Onlevel_idChanging(System.Nullable<int> value);
+    partial void Onlevel_idChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    #endregion
+		
+		public Quiz()
+		{
+			this._QuizQuestions = new EntitySet<QuizQuestion>(new Action<QuizQuestion>(this.attach_QuizQuestions), new Action<QuizQuestion>(this.detach_QuizQuestions));
+			this._CaseStudyQuizs = new EntitySet<CaseStudyQuiz>(new Action<CaseStudyQuiz>(this.attach_CaseStudyQuizs), new Action<CaseStudyQuiz>(this.detach_CaseStudyQuizs));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isonline", DbType="Bit")]
+		public System.Nullable<bool> isonline
+		{
+			get
+			{
+				return this._isonline;
+			}
+			set
+			{
+				if ((this._isonline != value))
+				{
+					this.OnisonlineChanging(value);
+					this.SendPropertyChanging();
+					this._isonline = value;
+					this.SendPropertyChanged("isonline");
+					this.OnisonlineChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_level_id", DbType="Int")]
+		public System.Nullable<int> level_id
+		{
+			get
+			{
+				return this._level_id;
+			}
+			set
+			{
+				if ((this._level_id != value))
+				{
+					this.Onlevel_idChanging(value);
+					this.SendPropertyChanging();
+					this._level_id = value;
+					this.SendPropertyChanged("level_id");
+					this.Onlevel_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50)")]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Quiz_QuizQuestion", Storage="_QuizQuestions", ThisKey="id", OtherKey="quiz_id")]
+		public EntitySet<QuizQuestion> QuizQuestions
+		{
+			get
+			{
+				return this._QuizQuestions;
+			}
+			set
+			{
+				this._QuizQuestions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Quiz_CaseStudyQuiz", Storage="_CaseStudyQuizs", ThisKey="id", OtherKey="quiz_id")]
+		public EntitySet<CaseStudyQuiz> CaseStudyQuizs
+		{
+			get
+			{
+				return this._CaseStudyQuizs;
+			}
+			set
+			{
+				this._CaseStudyQuizs.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_QuizQuestions(QuizQuestion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Quiz = this;
+		}
+		
+		private void detach_QuizQuestions(QuizQuestion entity)
+		{
+			this.SendPropertyChanging();
+			entity.Quiz = null;
+		}
+		
+		private void attach_CaseStudyQuizs(CaseStudyQuiz entity)
+		{
+			this.SendPropertyChanging();
+			entity.Quiz = this;
+		}
+		
+		private void detach_CaseStudyQuizs(CaseStudyQuiz entity)
+		{
+			this.SendPropertyChanging();
+			entity.Quiz = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.dockets_documents")]
+	public partial class DocketDocument : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private int _docket_id;
+		
+		private int _document_id;
+		
+		private System.Nullable<bool> _reference_document;
+		
+		private System.Nullable<int> _sequence_no;
+		
+		private EntityRef<Docket> _Docket;
+		
+		private EntityRef<Document> _Document;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void Ondocket_idChanging(int value);
+    partial void Ondocket_idChanged();
+    partial void Ondocument_idChanging(int value);
+    partial void Ondocument_idChanged();
+    partial void Onreference_documentChanging(System.Nullable<bool> value);
+    partial void Onreference_documentChanged();
+    partial void Onsequence_noChanging(System.Nullable<int> value);
+    partial void Onsequence_noChanged();
+    #endregion
+		
+		public DocketDocument()
+		{
+			this._Docket = default(EntityRef<Docket>);
+			this._Document = default(EntityRef<Document>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_docket_id", DbType="Int NOT NULL")]
+		public int docket_id
+		{
+			get
+			{
+				return this._docket_id;
+			}
+			set
+			{
+				if ((this._docket_id != value))
+				{
+					if (this._Docket.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Ondocket_idChanging(value);
+					this.SendPropertyChanging();
+					this._docket_id = value;
+					this.SendPropertyChanged("docket_id");
+					this.Ondocket_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_document_id", DbType="Int NOT NULL")]
+		public int document_id
+		{
+			get
+			{
+				return this._document_id;
+			}
+			set
+			{
+				if ((this._document_id != value))
+				{
+					if (this._Document.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Ondocument_idChanging(value);
+					this.SendPropertyChanging();
+					this._document_id = value;
+					this.SendPropertyChanged("document_id");
+					this.Ondocument_idChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_reference_document", DbType="Bit")]
+		public System.Nullable<bool> reference_document
+		{
+			get
+			{
+				return this._reference_document;
+			}
+			set
+			{
+				if ((this._reference_document != value))
+				{
+					this.Onreference_documentChanging(value);
+					this.SendPropertyChanging();
+					this._reference_document = value;
+					this.SendPropertyChanged("reference_document");
+					this.Onreference_documentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sequence_no", DbType="Int")]
+		public System.Nullable<int> sequence_no
+		{
+			get
+			{
+				return this._sequence_no;
+			}
+			set
+			{
+				if ((this._sequence_no != value))
+				{
+					this.Onsequence_noChanging(value);
+					this.SendPropertyChanging();
+					this._sequence_no = value;
+					this.SendPropertyChanged("sequence_no");
+					this.Onsequence_noChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Docket_dockets_document", Storage="_Docket", ThisKey="docket_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Docket Docket
+		{
+			get
+			{
+				return this._Docket.Entity;
+			}
+			set
+			{
+				Docket previousValue = this._Docket.Entity;
+				if (((previousValue != value) 
+							|| (this._Docket.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Docket.Entity = null;
+						previousValue.DocketDocuments.Remove(this);
+					}
+					this._Docket.Entity = value;
+					if ((value != null))
+					{
+						value.DocketDocuments.Add(this);
+						this._docket_id = value.id;
+					}
+					else
+					{
+						this._docket_id = default(int);
+					}
+					this.SendPropertyChanged("Docket");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Document_dockets_document", Storage="_Document", ThisKey="document_id", OtherKey="id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Document Document
+		{
+			get
+			{
+				return this._Document.Entity;
+			}
+			set
+			{
+				Document previousValue = this._Document.Entity;
+				if (((previousValue != value) 
+							|| (this._Document.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Document.Entity = null;
+						previousValue.DocketDocuments.Remove(this);
+					}
+					this._Document.Entity = value;
+					if ((value != null))
+					{
+						value.DocketDocuments.Add(this);
+						this._document_id = value.id;
+					}
+					else
+					{
+						this._document_id = default(int);
 					}
 					this.SendPropertyChanged("Document");
 				}

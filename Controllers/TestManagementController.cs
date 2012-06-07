@@ -39,42 +39,27 @@ namespace KotakDocuMentor.Controllers
         public ActionResult Documentor()
         {
             int student_id = DocumentorDB.Students.Where(a => a.id.Equals(Request.Params["student_id"])).First().id;
-            bool istest = bool.Parse(Request.Params["istest"]);
-            bool ispractice = bool.Parse(Request.Params["ispractice"]);
             Assignment assignment;
             //If assignment exists
-            if (DocumentorDB.Assignments.Where(a => a.student_id == student_id && a.ispractice.Equals(istest) && a.istest.Equals(ispractice) && a.iscomplete == false).ToList().Count != 0)
-                assignment = DocumentorDB.Assignments.Where(a => a.student_id == student_id && a.ispractice.Equals(istest) && a.istest.Equals(ispractice) && a.iscomplete == false).First();
+            if (DocumentorDB.Assignments.Where(a => a.student_id == student_id && a.istest.Equals(true) && a.iscomplete != true).ToList().Count != 0)
+                assignment = DocumentorDB.Assignments.Where(a => a.student_id == student_id && a.istest.Equals(true) && a.iscomplete != true).First();
             else //If assignment doesn't exists
             {
                 Assignment a_new = new Assignment();
                 a_new.student_id = student_id;
                 List<CaseStudy> case_studies;
-                if (istest)
-                    case_studies = DocumentorDB.CaseStudies.Where(cs => cs.CaseStudyDockets.Count > 0 && cs.CaseStudyQuizs.Where(csq => csq.Quiz.isonline == true).Count() > 0).ToList();
-                else if (ispractice)
-                    case_studies = DocumentorDB.CaseStudies.Where(cs => cs.CaseStudyDockets.Count > 0).ToList();
-                else
-                {
-                    case_studies = DocumentorDB.CaseStudies.Where(cs => cs.CaseStudyQuizs.Count() > 0).ToList();
-                    //case_studies = DocumentorDB.CaseStudies.Where(cs => cs.CaseStudyQuizs.Where(csq => csq.Quiz.isonline == false).Count() > 0).ToList();
-                }
+                case_studies = DocumentorDB.CaseStudies.Where(cs => cs.CaseStudyDockets.Count > 0 && cs.CaseStudyQuizs.Where(csq => csq.Quiz.isonline == true).Count() > 0).ToList();
                 Random r_no = new Random();
                 int new_case_study = r_no.Next(case_studies.Count);
                 a_new.case_study_id = case_studies[new_case_study].id;
                 a_new.level_id = DocumentorDB.Levels.First().id;
                 DocumentorDB.Assignments.InsertOnSubmit(a_new);
                 DocumentorDB.SubmitChanges();
-                assignment = DocumentorDB.Assignments.Where(a => a.student_id == student_id).First();
-                assignment.create_quiz();
+                assignment = DocumentorDB.Assignments.Where(a => a.id== a_new.id).First();
                 assignment.create_docuchecks();
             }
-            if (istest)
-                return RedirectToAction("PlayQuiz", new { assignment_id = assignment.id });
-            else if (ispractice)
-                return RedirectToAction("ListDockets", new { assignment_id = assignment.id });
-            else
-                return RedirectToAction("PlayQuiz", new { assignment_id = assignment.id });
+            return RedirectToAction("PlayQuiz", new { assignment_id = assignment.id });
+            
         }
 
         public struct QuestionAnswers

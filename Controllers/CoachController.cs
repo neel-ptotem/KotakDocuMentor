@@ -46,7 +46,7 @@ namespace KotakDocuMentor.Controllers
                 //user_progress.isComplete = true;
                 if (Request.Params[user_progress.resource_no.ToString()] != null)
                 {
-                    bool resource_progress = Request.Params[user_progress.resource_no.ToString()].Equals("1") || Request.Params[user_progress.resource_no.ToString()].Equals("on");
+                    bool resource_progress = Request.Params[user_progress.resource_no.ToString()].ToString().Contains("1") || Request.Params[user_progress.resource_no.ToString()].ToString().Contains("on");
                     if (resource_progress && user_progress.isComplete != true)
                         user_progress.isComplete = true;
                 }

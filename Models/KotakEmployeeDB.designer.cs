@@ -36,7 +36,7 @@ namespace KotakDocuMentor.Models
     #endregion
 		
 		public KotakEmployeeDBDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ELEARNINGConnectionString"].ConnectionString, mappingSource)
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ELEARNINGConnectionString1"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -88,67 +88,19 @@ namespace KotakDocuMentor.Models
 		
 		private string _LastName;
 		
-		private System.Nullable<int> _CustomerId;
-		
-		private bool _isDelete;
-		
-		private string _CreatedBy;
-		
-		private System.DateTime _CreatedOn;
-		
-		private string _ModifiedBy;
-		
-		private System.DateTime _ModifiedOn;
-		
-		private System.Nullable<int> _EditLockNumber;
-		
-		private System.Nullable<bool> _isActive;
-		
-		private string _Segment;
-		
 		private string _Division;
 		
-		private string _Function;
-		
-		private string _Role;
-		
-		private string _LOC;
-		
-		private string _LOB;
-		
 		private string _CC;
-		
-		private string _SupervisorID;
-		
-		private System.Nullable<System.DateTime> _DOJ;
-		
-		private System.Nullable<System.DateTime> _DOB;
 		
 		private string _Email;
 		
 		private string _EmpId;
 		
-		private System.Nullable<System.DateTime> _DeActiveDate;
-		
 		private string _Business_TrainerId;
 		
 		private string _HR_TrainerId;
 		
-		private string _LOC_Code;
-		
-		private string _Zonal_level_TrainerId;
-		
-		private string _Regional_level_TrainerId;
-		
-		private string _Area_level_TrainerId;
-		
-		private string _Branch_TrainerId;
-		
-		private System.Nullable<System.DateTime> _EMP_VERDATE;
-		
 		private System.Nullable<decimal> _PERSON_ID;
-		
-		private System.Nullable<System.DateTime> _LAST_WORKING_DATE;
 		
 		private int _UnqId;
 		
@@ -164,68 +116,20 @@ namespace KotakDocuMentor.Models
     partial void OnFirstNameChanged();
     partial void OnLastNameChanging(string value);
     partial void OnLastNameChanged();
-    partial void OnCustomerIdChanging(System.Nullable<int> value);
-    partial void OnCustomerIdChanged();
-    partial void OnisDeleteChanging(bool value);
-    partial void OnisDeleteChanged();
-    partial void OnCreatedByChanging(string value);
-    partial void OnCreatedByChanged();
-    partial void OnCreatedOnChanging(System.DateTime value);
-    partial void OnCreatedOnChanged();
-    partial void OnModifiedByChanging(string value);
-    partial void OnModifiedByChanged();
-    partial void OnModifiedOnChanging(System.DateTime value);
-    partial void OnModifiedOnChanged();
-    partial void OnEditLockNumberChanging(System.Nullable<int> value);
-    partial void OnEditLockNumberChanged();
-    partial void OnisActiveChanging(System.Nullable<bool> value);
-    partial void OnisActiveChanged();
-    partial void OnSegmentChanging(string value);
-    partial void OnSegmentChanged();
     partial void OnDivisionChanging(string value);
     partial void OnDivisionChanged();
-    partial void OnFunctionChanging(string value);
-    partial void OnFunctionChanged();
-    partial void OnRoleChanging(string value);
-    partial void OnRoleChanged();
-    partial void OnLOCChanging(string value);
-    partial void OnLOCChanged();
-    partial void OnLOBChanging(string value);
-    partial void OnLOBChanged();
     partial void OnCCChanging(string value);
     partial void OnCCChanged();
-    partial void OnSupervisorIDChanging(string value);
-    partial void OnSupervisorIDChanged();
-    partial void OnDOJChanging(System.Nullable<System.DateTime> value);
-    partial void OnDOJChanged();
-    partial void OnDOBChanging(System.Nullable<System.DateTime> value);
-    partial void OnDOBChanged();
     partial void OnEmailChanging(string value);
     partial void OnEmailChanged();
     partial void OnEmpIdChanging(string value);
     partial void OnEmpIdChanged();
-    partial void OnDeActiveDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnDeActiveDateChanged();
     partial void OnBusiness_TrainerIdChanging(string value);
     partial void OnBusiness_TrainerIdChanged();
     partial void OnHR_TrainerIdChanging(string value);
     partial void OnHR_TrainerIdChanged();
-    partial void OnLOC_CodeChanging(string value);
-    partial void OnLOC_CodeChanged();
-    partial void OnZonal_level_TrainerIdChanging(string value);
-    partial void OnZonal_level_TrainerIdChanged();
-    partial void OnRegional_level_TrainerIdChanging(string value);
-    partial void OnRegional_level_TrainerIdChanged();
-    partial void OnArea_level_TrainerIdChanging(string value);
-    partial void OnArea_level_TrainerIdChanged();
-    partial void OnBranch_TrainerIdChanging(string value);
-    partial void OnBranch_TrainerIdChanged();
-    partial void OnEMP_VERDATEChanging(System.Nullable<System.DateTime> value);
-    partial void OnEMP_VERDATEChanged();
     partial void OnPERSON_IDChanging(System.Nullable<decimal> value);
     partial void OnPERSON_IDChanged();
-    partial void OnLAST_WORKING_DATEChanging(System.Nullable<System.DateTime> value);
-    partial void OnLAST_WORKING_DATEChanged();
     partial void OnUnqIdChanging(int value);
     partial void OnUnqIdChanged();
     #endregion
@@ -315,186 +219,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerId", DbType="Int")]
-		public System.Nullable<int> CustomerId
-		{
-			get
-			{
-				return this._CustomerId;
-			}
-			set
-			{
-				if ((this._CustomerId != value))
-				{
-					this.OnCustomerIdChanging(value);
-					this.SendPropertyChanging();
-					this._CustomerId = value;
-					this.SendPropertyChanged("CustomerId");
-					this.OnCustomerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Bit NOT NULL")]
-		public bool isDelete
-		{
-			get
-			{
-				return this._isDelete;
-			}
-			set
-			{
-				if ((this._isDelete != value))
-				{
-					this.OnisDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._isDelete = value;
-					this.SendPropertyChanged("isDelete");
-					this.OnisDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedBy", DbType="NVarChar(80)")]
-		public string CreatedBy
-		{
-			get
-			{
-				return this._CreatedBy;
-			}
-			set
-			{
-				if ((this._CreatedBy != value))
-				{
-					this.OnCreatedByChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedBy = value;
-					this.SendPropertyChanged("CreatedBy");
-					this.OnCreatedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedOn", DbType="DateTime NOT NULL")]
-		public System.DateTime CreatedOn
-		{
-			get
-			{
-				return this._CreatedOn;
-			}
-			set
-			{
-				if ((this._CreatedOn != value))
-				{
-					this.OnCreatedOnChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedOn = value;
-					this.SendPropertyChanged("CreatedOn");
-					this.OnCreatedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedBy", DbType="NVarChar(80)")]
-		public string ModifiedBy
-		{
-			get
-			{
-				return this._ModifiedBy;
-			}
-			set
-			{
-				if ((this._ModifiedBy != value))
-				{
-					this.OnModifiedByChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedBy = value;
-					this.SendPropertyChanged("ModifiedBy");
-					this.OnModifiedByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ModifiedOn", DbType="DateTime NOT NULL")]
-		public System.DateTime ModifiedOn
-		{
-			get
-			{
-				return this._ModifiedOn;
-			}
-			set
-			{
-				if ((this._ModifiedOn != value))
-				{
-					this.OnModifiedOnChanging(value);
-					this.SendPropertyChanging();
-					this._ModifiedOn = value;
-					this.SendPropertyChanged("ModifiedOn");
-					this.OnModifiedOnChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EditLockNumber", DbType="Int")]
-		public System.Nullable<int> EditLockNumber
-		{
-			get
-			{
-				return this._EditLockNumber;
-			}
-			set
-			{
-				if ((this._EditLockNumber != value))
-				{
-					this.OnEditLockNumberChanging(value);
-					this.SendPropertyChanging();
-					this._EditLockNumber = value;
-					this.SendPropertyChanged("EditLockNumber");
-					this.OnEditLockNumberChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isActive", DbType="Bit")]
-		public System.Nullable<bool> isActive
-		{
-			get
-			{
-				return this._isActive;
-			}
-			set
-			{
-				if ((this._isActive != value))
-				{
-					this.OnisActiveChanging(value);
-					this.SendPropertyChanging();
-					this._isActive = value;
-					this.SendPropertyChanged("isActive");
-					this.OnisActiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Segment", DbType="NVarChar(100)")]
-		public string Segment
-		{
-			get
-			{
-				return this._Segment;
-			}
-			set
-			{
-				if ((this._Segment != value))
-				{
-					this.OnSegmentChanging(value);
-					this.SendPropertyChanging();
-					this._Segment = value;
-					this.SendPropertyChanged("Segment");
-					this.OnSegmentChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Division", DbType="NVarChar(100)")]
 		public string Division
 		{
@@ -515,86 +239,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Function]", Storage="_Function", DbType="NVarChar(100)")]
-		public string Function
-		{
-			get
-			{
-				return this._Function;
-			}
-			set
-			{
-				if ((this._Function != value))
-				{
-					this.OnFunctionChanging(value);
-					this.SendPropertyChanging();
-					this._Function = value;
-					this.SendPropertyChanged("Function");
-					this.OnFunctionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Role", DbType="NVarChar(100)")]
-		public string Role
-		{
-			get
-			{
-				return this._Role;
-			}
-			set
-			{
-				if ((this._Role != value))
-				{
-					this.OnRoleChanging(value);
-					this.SendPropertyChanging();
-					this._Role = value;
-					this.SendPropertyChanged("Role");
-					this.OnRoleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LOC", DbType="NVarChar(100)")]
-		public string LOC
-		{
-			get
-			{
-				return this._LOC;
-			}
-			set
-			{
-				if ((this._LOC != value))
-				{
-					this.OnLOCChanging(value);
-					this.SendPropertyChanging();
-					this._LOC = value;
-					this.SendPropertyChanged("LOC");
-					this.OnLOCChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LOB", DbType="NVarChar(100)")]
-		public string LOB
-		{
-			get
-			{
-				return this._LOB;
-			}
-			set
-			{
-				if ((this._LOB != value))
-				{
-					this.OnLOBChanging(value);
-					this.SendPropertyChanging();
-					this._LOB = value;
-					this.SendPropertyChanged("LOB");
-					this.OnLOBChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CC", DbType="NVarChar(100)")]
 		public string CC
 		{
@@ -611,66 +255,6 @@ namespace KotakDocuMentor.Models
 					this._CC = value;
 					this.SendPropertyChanged("CC");
 					this.OnCCChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupervisorID", DbType="NVarChar(100)")]
-		public string SupervisorID
-		{
-			get
-			{
-				return this._SupervisorID;
-			}
-			set
-			{
-				if ((this._SupervisorID != value))
-				{
-					this.OnSupervisorIDChanging(value);
-					this.SendPropertyChanging();
-					this._SupervisorID = value;
-					this.SendPropertyChanged("SupervisorID");
-					this.OnSupervisorIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DOJ", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DOJ
-		{
-			get
-			{
-				return this._DOJ;
-			}
-			set
-			{
-				if ((this._DOJ != value))
-				{
-					this.OnDOJChanging(value);
-					this.SendPropertyChanging();
-					this._DOJ = value;
-					this.SendPropertyChanged("DOJ");
-					this.OnDOJChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DOB", DbType="DateTime")]
-		public System.Nullable<System.DateTime> DOB
-		{
-			get
-			{
-				return this._DOB;
-			}
-			set
-			{
-				if ((this._DOB != value))
-				{
-					this.OnDOBChanging(value);
-					this.SendPropertyChanging();
-					this._DOB = value;
-					this.SendPropertyChanged("DOB");
-					this.OnDOBChanged();
 				}
 			}
 		}
@@ -715,26 +299,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeActiveDate", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> DeActiveDate
-		{
-			get
-			{
-				return this._DeActiveDate;
-			}
-			set
-			{
-				if ((this._DeActiveDate != value))
-				{
-					this.OnDeActiveDateChanging(value);
-					this.SendPropertyChanging();
-					this._DeActiveDate = value;
-					this.SendPropertyChanged("DeActiveDate");
-					this.OnDeActiveDateChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Business_TrainerId", DbType="NVarChar(50)")]
 		public string Business_TrainerId
 		{
@@ -775,126 +339,6 @@ namespace KotakDocuMentor.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LOC_Code", DbType="NVarChar(100)")]
-		public string LOC_Code
-		{
-			get
-			{
-				return this._LOC_Code;
-			}
-			set
-			{
-				if ((this._LOC_Code != value))
-				{
-					this.OnLOC_CodeChanging(value);
-					this.SendPropertyChanging();
-					this._LOC_Code = value;
-					this.SendPropertyChanged("LOC_Code");
-					this.OnLOC_CodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zonal_level_TrainerId", DbType="NVarChar(50)")]
-		public string Zonal_level_TrainerId
-		{
-			get
-			{
-				return this._Zonal_level_TrainerId;
-			}
-			set
-			{
-				if ((this._Zonal_level_TrainerId != value))
-				{
-					this.OnZonal_level_TrainerIdChanging(value);
-					this.SendPropertyChanging();
-					this._Zonal_level_TrainerId = value;
-					this.SendPropertyChanged("Zonal_level_TrainerId");
-					this.OnZonal_level_TrainerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Regional_level_TrainerId", DbType="NVarChar(50)")]
-		public string Regional_level_TrainerId
-		{
-			get
-			{
-				return this._Regional_level_TrainerId;
-			}
-			set
-			{
-				if ((this._Regional_level_TrainerId != value))
-				{
-					this.OnRegional_level_TrainerIdChanging(value);
-					this.SendPropertyChanging();
-					this._Regional_level_TrainerId = value;
-					this.SendPropertyChanged("Regional_level_TrainerId");
-					this.OnRegional_level_TrainerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Area_level_TrainerId", DbType="NVarChar(50)")]
-		public string Area_level_TrainerId
-		{
-			get
-			{
-				return this._Area_level_TrainerId;
-			}
-			set
-			{
-				if ((this._Area_level_TrainerId != value))
-				{
-					this.OnArea_level_TrainerIdChanging(value);
-					this.SendPropertyChanging();
-					this._Area_level_TrainerId = value;
-					this.SendPropertyChanged("Area_level_TrainerId");
-					this.OnArea_level_TrainerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Branch_TrainerId", DbType="NVarChar(50)")]
-		public string Branch_TrainerId
-		{
-			get
-			{
-				return this._Branch_TrainerId;
-			}
-			set
-			{
-				if ((this._Branch_TrainerId != value))
-				{
-					this.OnBranch_TrainerIdChanging(value);
-					this.SendPropertyChanging();
-					this._Branch_TrainerId = value;
-					this.SendPropertyChanged("Branch_TrainerId");
-					this.OnBranch_TrainerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMP_VERDATE", DbType="DateTime")]
-		public System.Nullable<System.DateTime> EMP_VERDATE
-		{
-			get
-			{
-				return this._EMP_VERDATE;
-			}
-			set
-			{
-				if ((this._EMP_VERDATE != value))
-				{
-					this.OnEMP_VERDATEChanging(value);
-					this.SendPropertyChanging();
-					this._EMP_VERDATE = value;
-					this.SendPropertyChanged("EMP_VERDATE");
-					this.OnEMP_VERDATEChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PERSON_ID", DbType="Decimal(18,0)")]
 		public System.Nullable<decimal> PERSON_ID
 		{
@@ -911,26 +355,6 @@ namespace KotakDocuMentor.Models
 					this._PERSON_ID = value;
 					this.SendPropertyChanged("PERSON_ID");
 					this.OnPERSON_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LAST_WORKING_DATE", DbType="DateTime2")]
-		public System.Nullable<System.DateTime> LAST_WORKING_DATE
-		{
-			get
-			{
-				return this._LAST_WORKING_DATE;
-			}
-			set
-			{
-				if ((this._LAST_WORKING_DATE != value))
-				{
-					this.OnLAST_WORKING_DATEChanging(value);
-					this.SendPropertyChanging();
-					this._LAST_WORKING_DATE = value;
-					this.SendPropertyChanged("LAST_WORKING_DATE");
-					this.OnLAST_WORKING_DATEChanged();
 				}
 			}
 		}

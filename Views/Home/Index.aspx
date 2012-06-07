@@ -51,8 +51,8 @@ $(function () {
 
     function update_hourglass()
     {
-    hrs=hrs+(Math.floor(mins/60));
-    mins=mins%60;
+    hrs=hrs+(Math.floor((mins+1)/60));
+    mins=(mins+1)%60;
     $("#hourglass").html("<big>"+hrs+":"+mins+"</big>");
     }
 
@@ -61,16 +61,16 @@ $(function () {
         hrs=Math.floor(data/60);
         mins=data%60;        
         update_hourglass();
-        clock_updater=setInterval(update_hourglass,60000);
+        
     });        
 
     
-    
+    clock_updater=setInterval(function(){update_hourglass();},60000);
 
     $(window).unload(function(){
-        clearInterval(clock_updater);
         var session_end=new Date();
         $.get("/Coach/UpdateTotalTime?student_id="+<%:ViewData["student_id"] %>+"&time_spend="+(Math.round((session_end-session_start)/1000)).toString());
+        clearInterval(clock_updater);
     });
     var session_start=new Date();
     var module_start,module_end;
@@ -104,7 +104,7 @@ $(function () {
             module_content_div.load("/Coach/module_content?student_id="+<%:ViewData["student_id"]%>+"&module_id="+module_id,function(){
                 if(module_id==2 || module_id==5 || module_id==6)
                 {
-                    $('.section').click(function(){$("."+$(this).attr("id")).attr("value","1");});
+                   $('.section').click(function(){$("."+$(this).attr("id")).attr("value","1");});
                 }
                 else if(module_id==1)
                 {

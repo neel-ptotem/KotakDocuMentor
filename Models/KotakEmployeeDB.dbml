@@ -1,42 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ELEARNING" Class="KotakEmployeeDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=NEEL-PC;Initial Catalog=ELEARNING;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ELEARNINGConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=NEEL-PC;Initial Catalog=ELEARNING;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ELEARNINGConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.UserInfo" Member="Employees">
     <Type Name="Employee">
       <Column Name="ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="UserLoginName" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
       <Column Name="FirstName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
       <Column Name="LastName" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
-      <Column Name="CustomerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isDelete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedBy" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="CreatedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ModifiedBy" Type="System.String" DbType="NVarChar(80)" CanBeNull="true" />
-      <Column Name="ModifiedOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="EditLockNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="isActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="Segment" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="Division" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="[Function]" Member="Function" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Role" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="LOC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="LOB" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="CC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="SupervisorID" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="DOJ" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DOB" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="EmpId" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="DeActiveDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="Business_TrainerId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="HR_TrainerId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="LOC_Code" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Zonal_level_TrainerId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Regional_level_TrainerId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Area_level_TrainerId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Branch_TrainerId" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="EMP_VERDATE" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="PERSON_ID" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="LAST_WORKING_DATE" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Column Name="UnqId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
     </Type>
   </Table>

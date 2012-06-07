@@ -79,7 +79,7 @@ namespace KotakDocuMentor.Models
                         Random r_id = new Random();
                         int new_no = r_id.Next(100);
                         //decide what reference set to use
-                        if (new_no > 50)
+                        if (new_no > 75)
                         {
                             reference_set = this.ReferenceSet;
                             filled_section.has_no_error = true;
@@ -117,13 +117,14 @@ namespace KotakDocuMentor.Models
 
         public void calculate_score()
         {
-            int score = this.score??0;
+            int score = 0;
             foreach (FilledSection filled_section in this.FilledSections)
             {
-                if (filled_section.has_no_error == filled_section.marked_correctly)
+                if (filled_section.has_no_error.Equals(filled_section.marked_correctly))
                     score++;
             }
-            this.score = score*100/this.FilledSections.Count;
+            score = score*100/this.FilledSections.Count;
+            DocumentorDBM.Docuchecks.Where(dchk => dchk.id.Equals(this.id)).First().score=score+(this.score??0);
             DocumentorDBM.SubmitChanges();
         }
 
@@ -178,40 +179,7 @@ namespace KotakDocuMentor.Models
             return obtained_score / maximum_score;
         }
 
-        public void create_quiz()
-        {
-            //CaseStudy case_study = DocumentorDBM.CaseStudies.Where(a => a.id == this.case_study_id).First();
-            //List<CaseStudyProduct> case_study_products = case_study.CaseStudyProducts.ToList();
-            //List<Product> products = new List<Product>();
-            //List<Concept> concepts = new List<Concept>();
-            //List<Question> questions = new List<Question>();
-            //foreach (CaseStudyProduct csp in case_study_products)
-            //{
-            //    products.Add(csp.Product);
-            //    foreach (ConceptProduct cp in csp.Product.ConceptProducts.ToList())
-            //    {
-            //        concepts.Add(cp.Concept);
-            //        questions.AddRange(cp.Concept.Questions.ToList());
-            //    }
-            //}
-
-            //Quiz quiz = new Quiz();
-            //quiz.assignment_id = this.id;
-            //quiz.qcount = questions.Count;
-            //quiz.score = 0;
-            //quiz.played = false;
-            //DocumentorDBM.Quizs.InsertOnSubmit(quiz);
-            //DocumentorDBM.SubmitChanges();
-            //foreach (Question question in questions)
-            //{
-
-            //    QuizQuestion quiz_question = new QuizQuestion();
-            //    quiz_question.quiz_id = quiz.id;
-            //    quiz_question.question_id = question.id;
-            //    DocumentorDBM.QuizQuestions.InsertOnSubmit(quiz_question);
-            //}
-            //DocumentorDBM.SubmitChanges();
-        }
+       
 
         public void create_docuchecks()
         {
@@ -248,5 +216,33 @@ namespace KotakDocuMentor.Models
                 }
             }
         }
+
+
+        public void create_docuchecks(int document_id, int docket_id)
+        {
+            Docket docket = DocumentorDBM.Dockets.Where(dkt => dkt.id == docket_id).First();
+            foreach (DocketDocument dd in docket.DocketDocuments.Where(x => x.reference_document == true || x.document_id == document_id).ToList())
+            {
+                Docucheck dchk = new Docucheck();
+                dchk.assignment_id = this.id;
+                dchk.document_id = dd.document_id;
+                dchk.docket_id = dd.docket_id;
+                List<ReferenceSet> reference_sets = docket.SuperSet.ReferenceSets.ToList();
+                if (reference_sets.Count(a => a.correct == true) != 0)
+                {
+                    Random r_id = new Random();
+                    dchk.reference_set_id = reference_sets[r_id.Next(reference_sets.Count)].id;
+                }
+                else
+                {
+                    dchk.reference_set_id = reference_sets.First().id;
+                }
+                DocumentorDBM.Docuchecks.InsertOnSubmit(dchk);
+                DocumentorDBM.SubmitChanges();
+                dchk.create_filled_section();
+            }
+        }
+
+
     }
 }

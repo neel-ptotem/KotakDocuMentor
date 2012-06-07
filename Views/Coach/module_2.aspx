@@ -64,7 +64,7 @@ color:black;
     <li class='item'>
         <div class='my_class' id="clt">
         <div style="margin-left: 20px;"><br/><br/><br/>
-        <input name="2" class="module-2-section-2" id="2" type="hidden" value="0" />
+        <input name="2" class="module-2-section-2" type="hidden" value="0" />
         <a class="section" target="_blank" id="module-2-section-2" href="/Content/html_pages/divisions/SanctionLetterTeam/SanctionLetterTeam.html">Commercial Loans Team</a>
         </div>
         <img src="/Content/images/general/knowledge_off.png" height="110" width="110" />
